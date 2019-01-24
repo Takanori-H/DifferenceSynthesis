@@ -1,0 +1,27 @@
+*概要
+	ゲーム空間上でのLosing regionの分析・更新とsimulation関係の分析を行う
+	
+*変数
+	-MultiConcurrentModel mcm
+		分析対象となるゲーム空間		
+	-int checker
+		緩和対象となる要求を指定するための変数
+		DirectoryTrackerで要求を読み込んだ際に付与される番号と対応づいており
+		n番目の要求を指定する際には2^nという形になる。複数の要求を指定する場合は話を取ればよい
+			例：0,2,3番目の要求が緩和対象として指定されているときは「1+4+8=13」を指定する。
+		（今はコードべた書きだが、DirectoryTrackerで要求を読み込んだ際に自動的に付与できるようにしたい）
+		
+	-Queue<MultiConcurrentTransition> deadStack;
+		Losing regionに属するかの分析が必要な遷移をためるためのキュー
+		
+*メソッド
+	+MultiRequirementParser()
+		テスト用のコンストラクタ
+	+List<int[]> checkSimulate(ModelInterface controller)
+		ゲーム空間上でのLosing regionの分析とsimulation関係の分析を実行する。
+		引数controllerで指定されたコントローラのモデルとのsimulation関係が分析される。
+		
+	+List<int[]> checkUpdatedSimulate(ModelInterface controller)
+		
+	
+	

@@ -1,0 +1,93 @@
+*概要
+	実験対象のディレクトリからゲーム空間を構築し、その分析を行う。
+
+*変数
+	-File directory
+		実験対象となるディレクトリ
+	-List<String> candidates
+		directory内のファイル名の一覧。
+		この一覧を利用して要求モニターのファイルを取り出す
+	-List<String> cas
+		Controllableアクションを表す文字列リスト
+	-List<Model> req
+		要求モニターのモデルのリスト。このリストに属するモデルと環境モデルからゲーム空間を構築する
+	-Model　e
+		環境のモデル。このモデルと要求モニターのモデルからゲーム空間を構築する
+	-Model c
+		コントローラのモデル。このモデルとsimulationの関係を保持するように分析が行われる。
+		（つまり、シナリオとしてはこのｃから新しいコントローラに切り替えるのである）
+	-boolean firstCheck
+		環境モデルと要求モニターからゲーム空間を構築し、Losing regionの分析を行った際にtrueになるbool変数
+		つまり、ゲーム空間の初期化が行われたかを判断する変数である。
+	-MultiConcurrentModel cm
+		環境モデルと要求モニターのモデルから構築されるゲーム空間
+	-MultiRequirementParser mrp
+		ゲーム空間上でLosing regionの分析およびコントローラのsimulationチェックを行うためのオブジェクト
+		
+		
+		
+*メソッド
+(+はpublicメソッド、-はprivateメソッド)
+	+DirectoryTracker DirectoryTracker(String directory)
+		対象となるディレクトリを引数に取るコンストラクタ
+		この時点では環境モデルや要求モニタのモデルの読み込みなどは行われていない
+	+boolean setDirectory(String dir)
+		対象となるディレクトリの再設定を行う際に利用する。
+		（ただしそれまでに構築されたモデルなどのクリアは行われない）
+	+MultiConcurrentMOdel getMCModelFromDirectory(String targetError)
+		対象となるフォルダから環境モデルと要求モニターのモデルが保存されたファイルを取り出し、モデルを読み込む。
+		その後、それらを使ってゲーム空間を合成し出力する（合成されたゲーム空間はcmにも保存される）。
+		引数targetErrorでは要求緩和の対象となる要求を文字列によって指定する
+			本プログラム中では対象フォルダの中には要求モニタが保存されたファイルと「Controller」が格納されている。
+			要求モニタが保存されたファイルには、フォルダ内の先頭を０として、順に番号が読み込みの際に付与されている。
+			この番号を利用してtargetErrorでは「ERROR0ERROR2ERROR3」というようにERRORを付けた文字列によって指定する。
+			上記場合、フォルダ内の先頭から0番目,2番目,3番目の要求が緩和によって取り除かれる可能性があることを意味している。
+			この指定はゲーム空間を構築する際に利用される。この指定が行われない要求は正しく緩和されない。
+		
+			
+	+List<int[]> checkSimulate(String controller,String targetError)
+		ゲーム空間のLosing regionおよび、コントローラとのsimulation関係を分析する
+		この分析が終わったとき、変数firstCheckは真となる。
+		この時、このオブジェクトがまだゲーム空間の合成を行っていなければgetMCModelFromDirectoryを呼び出し
+		ゲーム空間を合成する。引数targetErrorはその時にのみ使われる。（既に構築されている場合、targetErrorはnullでよい）
+		引数controllerではコントローラが保存されているファイル名を指定する。
+	
+	+List<int[]> checkUpdted(String updatedPart)
+		引数updatedPartで指定された遷移を環境モデルに追加し、その更新部分に従ってゲーム空間上の差分更新と現在のコントローラとのシミュレーションチェックを行う。
+		引数updatedPartが形式と異なるかゲーム空間上でまだLosing regionの分析が一度もなされていない場合は更新を行わずにnullを返す。
+		要求緩和を何も行わなずに現在のコントローラをsimulate可能なコントローラが合成可能にするために取り除くことが必要な要求の候補リストを返す。
+		updatedPartは以下のような形式に従う
+			"SourceState,actionName,TargetState"
+				SourceState:遷移が出ていくノード（State）
+				actionName:遷移を引き起こすアクション名
+				TargetState:遷移が入ってくるノード（State）
+				
+	+List<int[]> checkUpdateFromFile(String fileName)
+		引数filenameで指定したファイルに保存された更新情報を読み込んでcheckUpdatedを実行する。
+		更新情報はcheckUpdatedの引数と同様の形式に従うものとし、改行によって複数指定することが可能である。
+		
+	+extractDifference(File before,File after)
+		更新前の環境モデルと更新後の環境モデルを入力としてその更新情報をファイルに出力する。
+		出力される更新情報はcheckUpdatedの引数と同様の形式に従う。
+		また、出力先は対象フォルダの「Controller」内でファイル名にはテキトーなアクション名が付く
+		※実験のシナリオを構築しやすくするために作成したメソッドであるため、直接手法には関係ない。
+	-File searchEnvInDirectory()
+		環境モデルを保存したファイル「ENV.txt」を対象フォルダ内のフォルダ「Controller」から取り出す
+	-setControllableAction()
+		コントローラブルアクションを指定したファイル「CA.ｔｘｔ」から取り出しcasに保存する
+		「CA.txt」は「Controller」内に保存されている。		
+	-boolean modelUpdate(String updatedPart)
+		引数updatedPartで指定された遷移を環境モデルに追加する
+		引数updatedPartが形式と異なるかゲーム空間上でまだLosing regionの分析が一度もなされていない場合は
+		更新を行わずに偽を返す。
+		更新が行われた場合は真を返す。
+		updatedPartは以下のような形式に従う
+			"SourceState,actionName,TargetState"
+				SourceState:遷移が出ていくノード（State）
+				actionName:遷移を引き起こすアクション名
+				TargetState:遷移が入ってくるノード（State）
+	
+	-void makeStateMapWithoutR(HashMap<String,State>stateMap,State s1,State s2)
+		extractDifferenceで呼び出される。
+		実装されている手法とはほとんど関係ないので割愛
+	

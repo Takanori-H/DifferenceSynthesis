@@ -1,0 +1,19 @@
+Process:
+	DrillOnce1
+States:
+	4
+Transitions:
+	DrillOnce1 = Q0,
+	Q0	= ({[1].{pickupSuccess.drill, reset}, drill} -> Q0
+		  |[1].putSuccess.drill -> Q1
+		  |[1].endDrill -> Q2),
+	Q1	= ([1].pickupSuccess.drill -> Q0
+		  |{[1].{putSuccess.drill, reset}, drill} -> Q1
+		  |[1].endDrill -> Q3),
+	Q2	= ([1].reset -> Q0
+		  |{[1].{endDrill, pickupSuccess.drill}, drill} -> Q2
+		  |[1].putSuccess.drill -> Q3),
+	Q3	= (drill -> ERROR
+		  |[1].reset -> Q1
+		  |[1].pickupSuccess.drill -> Q2
+		  |[1].{endDrill, putSuccess.drill} -> Q3).

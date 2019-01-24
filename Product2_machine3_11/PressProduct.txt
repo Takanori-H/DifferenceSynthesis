@@ -1,0 +1,19 @@
+Process:
+	PressProduct
+States:
+	4
+Transitions:
+	PressProduct = Q0,
+	Q0	= (press -> ERROR
+		  |[0..1].pickupSuccess.press -> Q0
+		  |[0].putSuccess.press -> Q1
+		  |[1].putSuccess.press -> Q2),
+	Q1	= ([0].pickupSuccess.press -> Q0
+		  |{[0].putSuccess.press, [1].pickupSuccess.press, press} -> Q1
+		  |[1].putSuccess.press -> Q3),
+	Q2	= ([1].pickupSuccess.press -> Q0
+		  |{[0].pickupSuccess.press, [1].putSuccess.press, press} -> Q2
+		  |[0].putSuccess.press -> Q3),
+	Q3	= ([1].pickupSuccess.press -> Q1
+		  |[0].pickupSuccess.press -> Q2
+		  |{[0..1].putSuccess.press, press} -> Q3).

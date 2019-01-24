@@ -1,0 +1,7 @@
+GOAL13 = Q0,
+	Q0	= ([1].arrivePicking[1] -> ERROR
+		  |{[1].move.s, reset} -> Q0
+		  |[1].arriveReplenish[1] -> Q1),
+	Q1	= (reset -> Q0
+		  |[1].{{arrivePicking, arriveReplenish}[1], move.s} -> Q1).
+ 

@@ -1,0 +1,5 @@
+InvalidReturn12 = Q0,
+	Q0	= (reset -> Q0
+		  |[1].arrivePicking[1] -> Q1),
+	Q1	= ([1].arrivePicking[1] -> ERROR
+		  |reset -> Q0).

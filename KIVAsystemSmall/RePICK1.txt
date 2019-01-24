@@ -1,0 +1,5 @@
+RePICK1 = Q0,
+	Q0	= ({[1].put, reset} -> Q0
+		  |[1].pick -> Q1),
+	Q1	= ([1].pick -> ERROR
+		  |{[1].put, reset} -> Q0).

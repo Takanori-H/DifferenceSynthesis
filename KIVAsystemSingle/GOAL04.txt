@@ -1,0 +1,6 @@
+GOAL04 = Q0,
+	Q0	= ([0].arriveShipping[0] -> ERROR
+		  |{[0].move.w, reset} -> Q0
+		  |[0].arrivePicking[0] -> Q1),
+	Q1	= (reset -> Q0
+		  |[0].{{arrivePicking, arriveShipping}[0], move.w} -> Q1).

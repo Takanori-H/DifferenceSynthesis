@@ -1,0 +1,33 @@
+Process:
+	ProductMustProcess0
+States:
+	8
+Transitions:
+	ProductMustProcess0 = Q0,
+	Q0	= ([0].{endBaking, endDrill, endPress} -> Q0
+		  |[0].reset -> Q1),
+	Q1	= ([0].reset -> ERROR
+		  |[0].endDrill -> Q2
+		  |[0].endBaking -> Q3
+		  |[0].endPress -> Q4),
+	Q2	= ([0].reset -> ERROR
+		  |[0].endDrill -> Q2
+		  |[0].endBaking -> Q5
+		  |[0].endPress -> Q6),
+	Q3	= ([0].reset -> ERROR
+		  |[0].endBaking -> Q3
+		  |[0].endDrill -> Q5
+		  |[0].endPress -> Q7),
+	Q4	= ([0].reset -> ERROR
+		  |[0].endPress -> Q4
+		  |[0].endDrill -> Q6
+		  |[0].endBaking -> Q7),
+	Q5	= ([0].reset -> ERROR
+		  |[0].endPress -> Q0
+		  |[0].{endBaking, endDrill} -> Q5),
+	Q6	= ([0].reset -> ERROR
+		  |[0].endBaking -> Q0
+		  |[0].{endDrill, endPress} -> Q6),
+	Q7	= ([0].reset -> ERROR
+		  |[0].endDrill -> Q0
+		  |[0].{endBaking, endPress} -> Q7).

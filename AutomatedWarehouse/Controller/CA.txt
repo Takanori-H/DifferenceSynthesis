@@ -1,0 +1,6 @@
+move.e
+move.w
+pickup
+putdown
+reset
+ended

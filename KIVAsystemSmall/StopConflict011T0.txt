@@ -1,0 +1,10 @@
+StopConflict011T0 = Q0,
+	Q0	= ({[0..1].move.{e, n, s, w}, reset} -> Q0
+		  |[0].arrive[1][0] -> Q1
+		  |[1].arrive[1][0] -> Q2),
+	Q1	= ([1].arrive[1][0] -> ERROR
+		  |{[0].move.{e, n, s, w}, reset} -> Q0
+		  |{[0].arrive[1][0], [1].move.{e, n, s, w}} -> Q1),
+	Q2	= ([0].arrive[1][0] -> ERROR
+		  |{[1].move.{e, n, s, w}, reset} -> Q0
+		  |{[0].move.{e, n, s, w}, [1].arrive[1][0]} -> Q2).

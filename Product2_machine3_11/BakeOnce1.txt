@@ -1,0 +1,19 @@
+Process:
+	BakeOnce1
+States:
+	4
+Transitions:
+	BakeOnce1 = Q0,
+	Q0	= ({[1].{pickupSuccess.oven, reset}, bake} -> Q0
+		  |[1].putSuccess.oven -> Q1
+		  |[1].endBaking -> Q2),
+	Q1	= ([1].pickupSuccess.oven -> Q0
+		  |{[1].{putSuccess.oven, reset}, bake} -> Q1
+		  |[1].endBaking -> Q3),
+	Q2	= ([1].reset -> Q0
+		  |{[1].{endBaking, pickupSuccess.oven}, bake} -> Q2
+		  |[1].putSuccess.oven -> Q3),
+	Q3	= (bake -> ERROR
+		  |[1].reset -> Q1
+		  |[1].pickupSuccess.oven -> Q2
+		  |[1].{endBaking, putSuccess.oven} -> Q3).

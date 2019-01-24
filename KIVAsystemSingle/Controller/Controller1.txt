@@ -1,0 +1,92 @@
+Process:
+	A15
+States:
+	65
+Transitions:
+	A15 = Q0,
+	Q0	= ([0].arrive[0][1] -> Q19),
+	Q1	= ([0].arrive[0][1] -> Q61),
+	Q2	= ([0].move.w -> Q43
+		  |[0].move.n -> Q63),
+	Q3	= ([0].move.w -> Q27
+		  |[0].move.n -> Q64),
+	Q4	= ([0].arrive[0][0] -> Q56),
+	Q5	= ([0].arrive[0][0] -> Q60),
+	Q6	= ([0].pick -> Q45),
+	Q7	= (end -> Q18
+		  |[0].move.w -> Q55),
+	Q8	= ([0].arrive[1][1] -> Q54),
+	Q9	= ([0].arrive[0][0] -> Q62),
+	Q10	= ([0].arrive[0][0] -> Q60),
+	Q11	= ([0].arrive[0][1] -> Q61),
+	Q12	= ([0].move.w -> Q36
+		  |[0].move.n -> Q59),
+	Q13	= ([0].arriveInduction[0] -> Q52
+		  |[0].arrive[0][0] -> Q56),
+	Q14	= ([0].arrive[1][1] -> Q54),
+	Q15	= ([0].arrivePicking[0] -> Q53),
+	Q16	= ([0].arrive[1][0] -> Q37),
+	Q17	= ([0].wait -> Q7),
+	Q18	= (reset -> Q0),
+	Q19	= (start -> Q6),
+	Q20	= ([0].move.n -> Q5
+		  |[0].move.e -> Q31),
+	Q21	= ([0].move.e -> Q32
+		  |[0].move.n -> Q46),
+	Q22	= ([0].arrive[0][0] -> Q56),
+	Q23	= ([0].arrive[1][1] -> Q2),
+	Q24	= ([0].arrive[0][0] -> Q35),
+	Q25	= ([0].arrive[1][1] -> Q3),
+	Q26	= ([0].arrive[1][0] -> Q30),
+	Q27	= ([0].arrive[0][1] -> Q21),
+	Q28	= ([0].arrive[0][1] -> Q33),
+	Q29	= ([0].arrive[1][0] -> Q38),
+	Q30	= ([0].move.s -> Q14
+		  |[0].move.w -> Q24),
+	Q31	= ([0].arrive[1][1] -> Q2),
+	Q32	= ([0].arrive[1][1] -> Q3),
+	Q33	= ([0].move.n -> Q22
+		  |[0].move.e -> Q42),
+	Q34	= ([0].arrive[1][1] -> Q12),
+	Q35	= ([0].move.s -> Q1
+		  |[0].move.e -> Q26),
+	Q36	= ([0].arrive[0][1] -> Q33),
+	Q37	= ([0].move.s -> Q25
+		  |[0].move.e -> Q49
+		  |[0].move.w -> Q58),
+	Q38	= ([0].move.s -> Q23
+		  |[0].move.w -> Q57),
+	Q39	= ([0].arrive[1][0] -> Q30),
+	Q40	= ([0].move.e -> Q10),
+	Q41	= ([0].move.s -> Q9),
+	Q42	= ([0].arrive[1][1] -> Q12),
+	Q43	= ([0].arrive[0][1] -> Q20),
+	Q44	= ([0].arrive[1][0] -> Q48),
+	Q45	= ([0].picksucc -> Q33),
+	Q46	= ([0].arrive[0][0] -> Q62),
+	Q47	= ([0].arrive[0][0] -> Q35),
+	Q48	= ([0].move.w -> Q4
+		  |[0].move.s -> Q34),
+	Q49	= ([0].arriveShipping[0] -> Q17),
+	Q50	= ([0].arrive[0][1] -> Q20),
+	Q51	= ([0].arrive[0][1] -> Q21),
+	Q52	= ([0].wait -> Q40),
+	Q53	= ([0].wait -> Q41),
+	Q54	= ([0].move.w -> Q11
+		  |[0].move.n -> Q39),
+	Q55	= ([0].arrive[1][0] -> Q30),
+	Q56	= ([0].move.w -> Q13
+		  |[0].move.s -> Q28
+		  |[0].move.e -> Q44),
+	Q57	= ([0].arrive[0][0] -> Q60),
+	Q58	= ([0].arrive[0][0] -> Q62),
+	Q59	= ([0].arrive[1][0] -> Q48),
+	Q60	= ([0].move.n -> Q15
+		  |[0].move.e -> Q29
+		  |[0].move.s -> Q50),
+	Q61	= ([0].move.e -> Q8
+		  |[0].move.n -> Q47),
+	Q62	= ([0].move.e -> Q16
+		  |[0].move.s -> Q51),
+	Q63	= ([0].arrive[1][0] -> Q38),
+	Q64	= ([0].arrive[1][0] -> Q37).

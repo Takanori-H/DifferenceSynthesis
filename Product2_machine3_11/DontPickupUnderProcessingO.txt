@@ -1,0 +1,89 @@
+Process:
+	DontPickupUnderProcessingO
+States:
+	16
+Transitions:
+	DontPickupUnderProcessingO = Q0,
+	Q0	= ({[0..1].{endBaking, pickupSuccess.oven}, moveTo.{drill, press, tray}, pickup} -> Q0
+		  |bake -> Q1
+		  |arrive.oven -> Q2
+		  |[0].putSuccess.oven -> Q3
+		  |[1].putSuccess.oven -> Q4),
+	Q1	= ([0..1].endBaking -> Q0
+		  |{[0..1].pickupSuccess.oven, bake, moveTo.{drill, press, tray}, pickup} -> Q1
+		  |arrive.oven -> Q5
+		  |[0].putSuccess.oven -> Q6
+		  |[1].putSuccess.oven -> Q7),
+	Q2	= (moveTo.{drill, press, tray} -> Q0
+		  |{[0..1].{endBaking, pickupSuccess.oven}, arrive.oven, pickup} -> Q2
+		  |bake -> Q5
+		  |[0].putSuccess.oven -> Q8
+		  |[1].putSuccess.oven -> Q9),
+	Q3	= ([0].pickupSuccess.oven -> Q0
+		  |{[0].{endBaking, putSuccess.oven}, [1].{endBaking, pickupSuccess.oven}, moveTo.{drill, press, tray}, pickup} -> Q3
+		  |bake -> Q6
+		  |arrive.oven -> Q8
+		  |[1].putSuccess.oven -> Q10),
+	Q4	= ([1].pickupSuccess.oven -> Q0
+		  |{[0].{endBaking, pickupSuccess.oven}, [1].{endBaking, putSuccess.oven}, moveTo.{drill, press, tray}, pickup} -> Q4
+		  |bake -> Q7
+		  |arrive.oven -> Q9
+		  |[0].putSuccess.oven -> Q10),
+	Q5	= (moveTo.{drill, press, tray} -> Q1
+		  |[0..1].endBaking -> Q2
+		  |{[0..1].pickupSuccess.oven, arrive.oven, {bake, pickup}} -> Q5
+		  |[0].putSuccess.oven -> Q11
+		  |[1].putSuccess.oven -> Q12),
+	Q6	= ([0].pickupSuccess.oven -> Q1
+		  |[0..1].endBaking -> Q3
+		  |{[0].putSuccess.oven, [1].pickupSuccess.oven, bake, moveTo.{drill, press, tray}, pickup} -> Q6
+		  |arrive.oven -> Q11
+		  |[1].putSuccess.oven -> Q13),
+	Q7	= ([1].pickupSuccess.oven -> Q1
+		  |[0..1].endBaking -> Q4
+		  |{[0].pickupSuccess.oven, [1].putSuccess.oven, bake, moveTo.{drill, press, tray}, pickup} -> Q7
+		  |arrive.oven -> Q12
+		  |[0].putSuccess.oven -> Q13),
+	Q8	= ([0].pickupSuccess.oven -> Q2
+		  |moveTo.{drill, press, tray} -> Q3
+		  |{[0].{endBaking, putSuccess.oven}, [1].{endBaking, pickupSuccess.oven}, arrive.oven, pickup} -> Q8
+		  |bake -> Q11
+		  |[1].putSuccess.oven -> Q14),
+	Q9	= ([1].pickupSuccess.oven -> Q2
+		  |moveTo.{drill, press, tray} -> Q4
+		  |{[0].{endBaking, pickupSuccess.oven}, [1].{endBaking, putSuccess.oven}, arrive.oven, pickup} -> Q9
+		  |bake -> Q12
+		  |[0].putSuccess.oven -> Q14),
+	Q10	= ([1].pickupSuccess.oven -> Q3
+		  |[0].pickupSuccess.oven -> Q4
+		  |{[0..1].{endBaking, putSuccess.oven}, moveTo.{drill, press, tray}, pickup} -> Q10
+		  |bake -> Q13
+		  |arrive.oven -> Q14),
+	Q11	= (pickup -> ERROR
+		  |[0].pickupSuccess.oven -> Q5
+		  |moveTo.{drill, press, tray} -> Q6
+		  |[0..1].endBaking -> Q8
+		  |{[0].putSuccess.oven, [1].pickupSuccess.oven, arrive.oven, bake} -> Q11
+		  |[1].putSuccess.oven -> Q15),
+	Q12	= (pickup -> ERROR
+		  |[1].pickupSuccess.oven -> Q5
+		  |moveTo.{drill, press, tray} -> Q7
+		  |[0..1].endBaking -> Q9
+		  |{[0].pickupSuccess.oven, [1].putSuccess.oven, arrive.oven, bake} -> Q12
+		  |[0].putSuccess.oven -> Q15),
+	Q13	= ([1].pickupSuccess.oven -> Q6
+		  |[0].pickupSuccess.oven -> Q7
+		  |[0..1].endBaking -> Q10
+		  |{[0..1].putSuccess.oven, bake, moveTo.{drill, press, tray}, pickup} -> Q13
+		  |arrive.oven -> Q15),
+	Q14	= ([1].pickupSuccess.oven -> Q8
+		  |[0].pickupSuccess.oven -> Q9
+		  |moveTo.{drill, press, tray} -> Q10
+		  |{[0..1].{endBaking, putSuccess.oven}, arrive.oven, pickup} -> Q14
+		  |bake -> Q15),
+	Q15	= (pickup -> ERROR
+		  |[1].pickupSuccess.oven -> Q11
+		  |[0].pickupSuccess.oven -> Q12
+		  |moveTo.{drill, press, tray} -> Q13
+		  |[0..1].endBaking -> Q14
+		  |{[0..1].putSuccess.oven, arrive.oven, bake} -> Q15).

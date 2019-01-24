@@ -1,0 +1,12 @@
+ImidiatePick1 = Q0,
+	Q0	= ({[1].{move.{e, n, s, w}, put}, reset} -> Q0
+		  |[1].arrive[1][1] -> Q1
+		  |[1].pick -> Q2),
+	Q1	= ({[1].{arrive[1][1], move.{e, n, s, w}, put}, reset} -> ERROR
+		  |[1].pick -> Q3),
+	Q2	= ({[1].put, reset} -> Q0
+		  |[1].{move.{e, n, s, w}, pick} -> Q2
+		  |[1].arrive[1][1] -> Q3),
+	Q3	= ({[1].put, reset} -> ERROR
+		  |[1].move.{e, n, s, w} -> Q2
+		  |[1].{arrive[1][1], pick} -> Q3).

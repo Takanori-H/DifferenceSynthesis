@@ -1,0 +1,21 @@
+Process:
+	LEVEL5_C
+States:
+	15
+Transitions:
+	LEVEL5_C = Q0,
+	Q0	= (arrive.w -> Q4),
+	Q1	= (pickup -> Q8),
+	Q2	= (arrive.m -> Q7),
+	Q3	= (ended -> Q5),
+	Q4	= (move.e -> Q6),
+	Q5	= (reset -> Q4),
+	Q6	= (arrive.m -> Q9),
+	Q7	= (move.w -> Q11),
+	Q8	= (pickupsuccess -> Q10),
+	Q9	= (move.e -> Q13),
+	Q10	= (move.w -> Q2),
+	Q11	= (arrive.w -> Q14),
+	Q12	= (putsuccess -> Q3),
+	Q13	= (arrive.e -> Q1),
+	Q14	= (putdown -> Q12).

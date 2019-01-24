@@ -1,0 +1,11 @@
+Process:
+	PICKONCE
+States:
+	2
+Transitions:
+	PICKONCE = Q0,
+	Q0	= ({[0..1].putSuccess.{drill, oven, press, tray}, pickup} -> Q0
+		  |[0..1].pickupSuccess.{drill, oven, press, tray} -> Q1),
+	Q1	= (pickup -> ERROR
+		  |[0..1].putSuccess.{drill, oven, press, tray} -> Q0
+		  |[0..1].pickupSuccess.{drill, oven, press, tray} -> Q1).

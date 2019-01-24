@@ -1,0 +1,6 @@
+ValidArrivePicking = Q0,
+	Q0	= ([0].arrivePicking[0] -> ERROR
+		  |{[1].move.s, reset} -> Q0
+		  |[1].arrivePicking[1] -> Q1),
+	Q1	= ({[1].move.s, reset} -> Q0
+		  |{[0].arrivePicking[0], [1].arrivePicking[1]} -> Q1).

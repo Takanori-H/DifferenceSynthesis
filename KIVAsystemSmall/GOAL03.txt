@@ -1,0 +1,6 @@
+GOAL03 = Q0,
+	Q0	= ([0].arrivePicking[0] -> ERROR
+		  |{[0].move.s, reset} -> Q0
+		  |[0].arriveInduction[0] -> Q1),
+	Q1	= (reset -> Q0
+		  |[0].{{arriveInduction, arrivePicking}[0], move.s} -> Q1).

@@ -1,0 +1,21 @@
+GOAL02 = Q0,
+	Q0	= ([0].arriveInduction[0] -> ERROR
+		  |{[0].{move.e, put}, reset} -> Q0
+		  |[0].arrive[0][1] -> Q1
+		  |[0].pick -> Q2),
+	Q1	= ([0].arriveInduction[0] -> ERROR
+		  |reset -> Q0
+		  |[0].{arrive[0][1], move.e, put} -> Q1
+		  |[0].pick -> Q3),
+	Q2	= ([0].arriveInduction[0] -> ERROR
+		  |{[0].put, reset} -> Q0
+		  |[0].{move.e, pick} -> Q2
+		  |[0].arrive[0][1] -> Q3),
+	Q3	= (reset -> Q0
+		  |[0].put -> Q1
+		  |[0].{arrive[0][1], move.e, pick} -> Q3
+		  |[0].arriveInduction[0] -> Q4),
+	Q4	= ([0].put -> ERROR
+		  |reset -> Q0
+		  |[0].move.e -> Q3
+		  |[0].{arrive[0][1], arriveInduction[0], pick} -> Q4).

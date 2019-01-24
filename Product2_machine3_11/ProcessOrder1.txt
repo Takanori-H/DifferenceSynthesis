@@ -1,0 +1,20 @@
+Process:
+	ProcessOrder1
+States:
+	4
+Transitions:
+	ProcessOrder1 = Q0,
+	Q0	= ([1].endPress -> ERROR
+		  |[1].reset -> Q0
+		  |[1].endBaking -> Q1
+		  |[1].endDrill -> Q2),
+	Q1	= ([1].endPress -> ERROR
+		  |[1].reset -> Q0
+		  |[1].endBaking -> Q1
+		  |[1].endDrill -> Q3),
+	Q2	= ([1].endPress -> ERROR
+		  |[1].reset -> Q0
+		  |[1].endDrill -> Q2
+		  |[1].endBaking -> Q3),
+	Q3	= ([1].reset -> Q0
+		  |[1].{endBaking, endDrill, endPress} -> Q3).

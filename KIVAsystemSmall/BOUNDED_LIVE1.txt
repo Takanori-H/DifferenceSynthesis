@@ -1,0 +1,9 @@
+BOUNDED_LIVE(1) = Q0,
+	Q0	= ([1].{arriveInduction, arrivePicking, arriveReplenish, arriveShipping}[0..1] -> Q0
+		  |[1].move.{e, n, s, w} -> Q1),
+	Q1	= ([1].{arriveInduction, arrivePicking, arriveReplenish, arriveShipping}[0..1] -> Q0
+		  |[1].move.{e, n, s, w} -> Q2),
+	Q2	= ([1].{arriveInduction, arrivePicking, arriveReplenish, arriveShipping}[0..1] -> Q0
+		  |[1].move.{e, n, s, w} -> Q3),
+	Q3	= ([1].move.{e, n, s, w} -> ERROR
+		  |[1].{arriveInduction, arrivePicking, arriveReplenish, arriveShipping}[0..1] -> Q0).

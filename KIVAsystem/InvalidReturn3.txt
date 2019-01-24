@@ -1,0 +1,5 @@
+InvalidReturn3 = Q0,
+	Q0	= (reset -> Q0
+		  |[0].arriveShipping[0] -> Q1),
+	Q1	= ([0].arriveShipping[0] -> ERROR
+		  |reset -> Q0).

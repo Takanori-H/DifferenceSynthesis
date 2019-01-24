@@ -1,0 +1,13 @@
+Process:
+	Req2
+States:
+	3
+Transitions:
+	Req2 = Q0,
+	Q0	= ({move.w, putsuccess} -> Q0
+		  |arrive.e -> Q1),
+	Q1	= ({arrive.e, putsuccess} -> Q1
+		  |move.w -> Q2),
+	Q2	= (arrive.e -> ERROR
+		  |putsuccess -> Q0
+		  |move.w -> Q2).

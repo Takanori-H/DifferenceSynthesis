@@ -1,0 +1,5 @@
+RePUT1 = Q0,
+	Q0	= ({[1].pick, reset} -> Q0
+		  |[1].put -> Q1),
+	Q1	= ([1].put -> ERROR
+		  |{[1].pick, reset} -> Q0).

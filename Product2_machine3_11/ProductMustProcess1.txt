@@ -1,0 +1,33 @@
+Process:
+	ProductMustProcess1
+States:
+	8
+Transitions:
+	ProductMustProcess1 = Q0,
+	Q0	= ([1].{endBaking, endDrill, endPress} -> Q0
+		  |[1].reset -> Q1),
+	Q1	= ([1].reset -> ERROR
+		  |[1].endDrill -> Q2
+		  |[1].endBaking -> Q3
+		  |[1].endPress -> Q4),
+	Q2	= ([1].reset -> ERROR
+		  |[1].endDrill -> Q2
+		  |[1].endBaking -> Q5
+		  |[1].endPress -> Q6),
+	Q3	= ([1].reset -> ERROR
+		  |[1].endBaking -> Q3
+		  |[1].endDrill -> Q5
+		  |[1].endPress -> Q7),
+	Q4	= ([1].reset -> ERROR
+		  |[1].endPress -> Q4
+		  |[1].endDrill -> Q6
+		  |[1].endBaking -> Q7),
+	Q5	= ([1].reset -> ERROR
+		  |[1].endPress -> Q0
+		  |[1].{endBaking, endDrill} -> Q5),
+	Q6	= ([1].reset -> ERROR
+		  |[1].endBaking -> Q0
+		  |[1].{endDrill, endPress} -> Q6),
+	Q7	= ([1].reset -> ERROR
+		  |[1].endDrill -> Q0
+		  |[1].{endBaking, endPress} -> Q7).

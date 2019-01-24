@@ -1,0 +1,5 @@
+InvalidReturn10 = Q0,
+	Q0	= (reset -> Q0
+		  |[1].arriveReplenish[1] -> Q1),
+	Q1	= ([1].arriveReplenish[1] -> ERROR
+		  |reset -> Q0).

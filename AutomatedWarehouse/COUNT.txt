@@ -1,0 +1,27 @@
+Process:
+	COUNT
+States:
+	14
+Transitions:
+	COUNT = Q0,
+	Q0	= ({move.{e, w}, {pickup, putdown}} -> Q1
+		  |ended -> Q13),
+	Q1	= ({move.{e, w}, {pickup, putdown}} -> Q2
+		  |ended -> Q12),
+	Q2	= ({move.{e, w}, {pickup, putdown}} -> Q3
+		  |ended -> Q11),
+	Q3	= ({move.{e, w}, {pickup, putdown}} -> Q4
+		  |ended -> Q10),
+	Q4	= ({move.{e, w}, {pickup, putdown}} -> Q5
+		  |ended -> Q9),
+	Q5	= ({move.{e, w}, {pickup, putdown}} -> Q6
+		  |ended -> Q8),
+	Q6	= ({move.{e, w}, {pickup, putdown}} -> ERROR
+		  |ended -> Q7),
+	Q7	= (reset -> Q0),
+	Q8	= (reset -> Q0),
+	Q9	= (reset -> Q0),
+	Q10	= (reset -> Q0),
+	Q11	= (reset -> Q0),
+	Q12	= (reset -> Q0),
+	Q13	= (reset -> Q0).

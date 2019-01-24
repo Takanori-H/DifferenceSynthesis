@@ -1,0 +1,11 @@
+Process:
+	DontMoveWithNoMeanO
+States:
+	2
+Transitions:
+	DontMoveWithNoMeanO = Q0,
+	Q0	= ({moveTo.{drill, press, tray}, {pickup, putdown}} -> Q0
+		  |arrive.oven -> Q1),
+	Q1	= (moveTo.{drill, press, tray} -> ERROR
+		  |{pickup, putdown} -> Q0
+		  |arrive.oven -> Q1).

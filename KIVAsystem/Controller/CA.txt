@@ -1,0 +1,16 @@
+[0].move.w
+[0].move.e
+[0].move.n
+[0].move.s
+[1].move.w
+[1].move.s
+[1].move.e
+[1].move.n
+[0].wait
+[1].wait
+[0].pick
+[1].pick
+[0].put
+[1].put
+start
+end

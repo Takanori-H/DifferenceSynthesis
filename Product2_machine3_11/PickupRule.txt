@@ -1,0 +1,11 @@
+Process:
+	PickupRule
+States:
+	2
+Transitions:
+	PickupRule = Q0,
+	Q0	= ({[0..1].reset, {bake, drill}, moveTo.{drill, oven, press, tray}, {press, putdown}} -> Q0
+		  |pickup -> Q1),
+	Q1	= (putdown -> ERROR
+		  |{[0..1].reset, {bake, drill}, moveTo.{drill, oven, press, tray}, press} -> Q0
+		  |pickup -> Q1).

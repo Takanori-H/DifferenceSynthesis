@@ -1,0 +1,17 @@
+BOUNDED_LIVE0,InvalidEnd0,RePICK0,RePUT0,InvalidPUT0,ImidiatePick0,InvalidReturn1,InvalidReturn2,InvalidReturn3,InvalidArriveStation,GOAL02,GOAL03,GOAL04
+InvalidEnd0,RePICK0,RePUT0,InvalidPUT0,ImidiatePick0,InvalidReturn1,InvalidReturn2,InvalidReturn3,InvalidArriveStation,GOAL02,GOAL03,GOAL04
+InvalidEnd0,RePICK0,RePUT0,InvalidPUT0,ImidiatePick0,InvalidReturn2,InvalidReturn3,InvalidArriveStation,GOAL02,GOAL03,GOAL04
+InvalidEnd0,RePICK0,RePUT0,InvalidPUT0,ImidiatePick0,InvalidReturn1,InvalidReturn3,InvalidArriveStation,GOAL02,GOAL03,GOAL04
+InvalidEnd0,RePICK0,RePUT0,InvalidPUT0,ImidiatePick0,InvalidReturn2,InvalidReturn1,InvalidArriveStation,GOAL02,GOAL03,GOAL04
+InvalidEnd0,RePICK0,RePUT0,InvalidPUT0,ImidiatePick0,InvalidReturn1,InvalidReturn2,InvalidReturn3,GOAL02,GOAL03,GOAL04
+InvalidEnd0,RePICK0,RePUT0,InvalidPUT0,ImidiatePick0,InvalidReturn2,InvalidReturn3,GOAL02,GOAL03,GOAL04
+InvalidEnd0,RePICK0,RePUT0,InvalidPUT0,ImidiatePick0,InvalidReturn1,InvalidReturn3,GOAL02,GOAL03,GOAL04
+InvalidEnd0,RePICK0,RePUT0,InvalidPUT0,ImidiatePick0,InvalidReturn2,InvalidReturn1,GOAL02,GOAL03,GOAL04
+InvalidEnd0,RePICK0,RePUT0,InvalidPUT0,ImidiatePick0,InvalidReturn3,InvalidArriveStation,GOAL02,GOAL03,GOAL04
+InvalidEnd0,RePICK0,RePUT0,InvalidPUT0,ImidiatePick0,InvalidReturn2,InvalidArriveStation,GOAL02,GOAL03,GOAL04
+InvalidEnd0,RePICK0,RePUT0,InvalidPUT0,ImidiatePick0,InvalidReturn1,InvalidArriveStation,GOAL02,GOAL03,GOAL04
+InvalidEnd0,RePICK0,RePUT0,InvalidPUT0,ImidiatePick0,InvalidReturn3,GOAL02,GOAL03,GOAL04
+InvalidEnd0,RePICK0,RePUT0,InvalidPUT0,ImidiatePick0,InvalidReturn2,GOAL02,GOAL03,GOAL04
+InvalidEnd0,RePICK0,RePUT0,InvalidPUT0,ImidiatePick0,InvalidReturn1,GOAL02,GOAL03,GOAL04
+InvalidEnd0,RePICK0,RePUT0,InvalidPUT0,ImidiatePick0,InvalidArriveStation,GOAL02,GOAL03,GOAL04
+InvalidEnd0,RePICK0,RePUT0,InvalidPUT0,ImidiatePick0,GOAL02,GOAL03,GOAL04

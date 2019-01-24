@@ -1,0 +1,150 @@
+Process:
+	Req1
+States:
+	24
+Transitions:
+	Req1 = Q0,
+	Q0	= ({ended, pickup, putdown} -> ERROR
+		  |{move.{e, w}, reset} -> Q0
+		  |arrive.e -> Q1
+		  |arrive.w -> Q2
+		  |putsuccess -> Q3
+		  |pickupsuccess -> Q4),
+	Q1	= ({ended, putdown} -> ERROR
+		  |move.w -> Q0
+		  |{{arrive, move}.e, {pickup, reset}} -> Q1
+		  |arrive.w -> Q5
+		  |putsuccess -> Q6
+		  |pickupsuccess -> Q7),
+	Q2	= ({ended, pickup, putdown} -> ERROR
+		  |move.e -> Q0
+		  |{{arrive, move}.w, reset} -> Q2
+		  |arrive.e -> Q5
+		  |putsuccess -> Q8
+		  |pickupsuccess -> Q9),
+	Q3	= ({ended, pickup, putdown} -> ERROR
+		  |reset -> Q0
+		  |{move.{e, w}, putsuccess} -> Q3
+		  |arrive.e -> Q6
+		  |arrive.w -> Q8
+		  |pickupsuccess -> Q10),
+	Q4	= ({ended, pickup, putdown} -> ERROR
+		  |{move.{e, w}, pickupsuccess} -> Q4
+		  |arrive.e -> Q7
+		  |arrive.w -> Q9
+		  |putsuccess -> Q11
+		  |reset -> Q12),
+	Q5	= ({ended, putdown} -> ERROR
+		  |move.e -> Q1
+		  |move.w -> Q2
+		  |{arrive.{e, w}, {pickup, reset}} -> Q5
+		  |putsuccess -> Q13
+		  |pickupsuccess -> Q14),
+	Q6	= ({ended, putdown} -> ERROR
+		  |reset -> Q1
+		  |move.w -> Q3
+		  |{{arrive, move}.e, {pickup, putsuccess}} -> Q6
+		  |arrive.w -> Q13
+		  |pickupsuccess -> Q15),
+	Q7	= ({ended, pickup, putdown} -> ERROR
+		  |move.w -> Q4
+		  |{{arrive, move}.e, pickupsuccess} -> Q7
+		  |arrive.w -> Q14
+		  |putsuccess -> Q16
+		  |reset -> Q17),
+	Q8	= ({ended, pickup, putdown} -> ERROR
+		  |reset -> Q2
+		  |move.e -> Q3
+		  |{{arrive, move}.w, putsuccess} -> Q8
+		  |arrive.e -> Q13
+		  |pickupsuccess -> Q18),
+	Q9	= ({ended, pickup} -> ERROR
+		  |move.e -> Q4
+		  |{{arrive, move}.w, {pickupsuccess, putdown}} -> Q9
+		  |arrive.e -> Q14
+		  |putsuccess -> Q19
+		  |reset -> Q20),
+	Q10	= ({pickup, putdown} -> ERROR
+		  |{ended, move.{e, w}, pickupsuccess} -> Q10
+		  |putsuccess -> Q11
+		  |reset -> Q12
+		  |arrive.e -> Q15
+		  |arrive.w -> Q18),
+	Q11	= ({pickup, putdown} -> ERROR
+		  |reset -> Q0
+		  |pickupsuccess -> Q10
+		  |{ended, move.{e, w}, putsuccess} -> Q11
+		  |arrive.e -> Q16
+		  |arrive.w -> Q19),
+	Q12	= ({ended, pickup, putdown} -> ERROR
+		  |putsuccess -> Q3
+		  |pickupsuccess -> Q4
+		  |{move.{e, w}, reset} -> Q12
+		  |arrive.e -> Q17
+		  |arrive.w -> Q20),
+	Q13	= ({ended, putdown} -> ERROR
+		  |reset -> Q5
+		  |move.e -> Q6
+		  |move.w -> Q8
+		  |{arrive.{e, w}, {pickup, putsuccess}} -> Q13
+		  |pickupsuccess -> Q21),
+	Q14	= ({ended, pickup} -> ERROR
+		  |move.e -> Q7
+		  |move.w -> Q9
+		  |{arrive.{e, w}, {pickupsuccess, putdown}} -> Q14
+		  |putsuccess -> Q22
+		  |reset -> Q23),
+	Q15	= ({pickup, putdown} -> ERROR
+		  |move.w -> Q10
+		  |{arrive.e, ended, move.e, pickupsuccess} -> Q15
+		  |putsuccess -> Q16
+		  |reset -> Q17
+		  |arrive.w -> Q21),
+	Q16	= (putdown -> ERROR
+		  |reset -> Q1
+		  |move.w -> Q11
+		  |pickupsuccess -> Q15
+		  |{arrive.e, ended, move.e, {pickup, putsuccess}} -> Q16
+		  |arrive.w -> Q22),
+	Q17	= ({ended, pickup, putdown} -> ERROR
+		  |putsuccess -> Q6
+		  |pickupsuccess -> Q7
+		  |move.w -> Q12
+		  |{{arrive, move}.e, reset} -> Q17
+		  |arrive.w -> Q23),
+	Q18	= (pickup -> ERROR
+		  |move.e -> Q10
+		  |{arrive.w, ended, move.w, {pickupsuccess, putdown}} -> Q18
+		  |putsuccess -> Q19
+		  |reset -> Q20
+		  |arrive.e -> Q21),
+	Q19	= ({pickup, putdown} -> ERROR
+		  |reset -> Q2
+		  |move.e -> Q11
+		  |pickupsuccess -> Q18
+		  |{arrive.w, ended, move.w, putsuccess} -> Q19
+		  |arrive.e -> Q22),
+	Q20	= ({ended, pickup} -> ERROR
+		  |putsuccess -> Q8
+		  |pickupsuccess -> Q9
+		  |move.e -> Q12
+		  |{{arrive, move}.w, {putdown, reset}} -> Q20
+		  |arrive.e -> Q23),
+	Q21	= (pickup -> ERROR
+		  |move.e -> Q15
+		  |move.w -> Q18
+		  |{arrive.{e, w}, {ended, pickupsuccess, putdown}} -> Q21
+		  |putsuccess -> Q22
+		  |reset -> Q23),
+	Q22	= (putdown -> ERROR
+		  |reset -> Q5
+		  |move.e -> Q16
+		  |move.w -> Q19
+		  |pickupsuccess -> Q21
+		  |{arrive.{e, w}, {ended, pickup, putsuccess}} -> Q22),
+	Q23	= ({ended, pickup} -> ERROR
+		  |putsuccess -> Q13
+		  |pickupsuccess -> Q14
+		  |move.e -> Q17
+		  |move.w -> Q20
+		  |{arrive.{e, w}, {putdown, reset}} -> Q23).

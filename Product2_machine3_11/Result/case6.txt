@@ -1,0 +1,212 @@
+================================================CONT11===================================================
+Composition:
+CONT11 = Env_ || DrillOnce0 || PUTONCE || PressOnce1 || DrillToProduct || PICKONCE || DontMoveWithNoMeanD || DontPutWithNoMeanO || BakeOnce1 || BakeOnce0 || ProcessOrder1 || PressOnce0 || DontPutWithNoMeanD || ProductMustProcess0 || ProcessOrder0 || DontMoveWithNoMeanT || DontPickupUnderProcessingP || DontMoveWithNoMeanO || PickupRule || BakeProduct || DontPickupUnderProcessingD || ProductMustProcess1 || DontPutWithNoMeanP || PressProduct || DontMoveWithNoMeanP || DontPickupUnderProcessingO || DrillOnce1
+State Space:
+ 6941 * 4 * 2 * 4 * 4 * 2 * 2 * 4 * 4 * 4 * 4 * 4 * 4 * 8 * 4 * 2 * 16 * 2 * 2 * 4 * 16 * 8 * 4 * 4 * 2 * 16 * 4 = 2 ** 66
+Composing...
+-- States: 10000 Transitions: 49107 Memory used: 390136K
+-- States: 20000 Transitions: 96088 Memory used: 390136K
+-- States: 30000 Transitions: 147901 Memory used: 390136K
+-- States: 40000 Transitions: 202263 Memory used: 390136K
+-- States: 50000 Transitions: 251989 Memory used: 390136K
+-- States: 60000 Transitions: 299954 Memory used: 390136K
+-- States: 70000 Transitions: 349950 Memory used: 390136K
+-- States: 80000 Transitions: 399286 Memory used: 504180K
+-- States: 90000 Transitions: 448418 Memory used: 504180K
+-- States: 100000 Transitions: 500044 Memory used: 504180K
+-- States: 103594 Transitions: 519026 Memory used: 504180K
+Composed in 329ms
+Solving the LTS control problem.
+Environment states: 103595
+Game states: 103595
+Analysis time: 10937ms.
+Controller [5852] generated successfully.
+
+Compiled: RobotArm
+Compiled: Oven
+Compiled: Drill
+Compiled: Press
+Compiled: Tray
+Compiled: Product
+Compiled: CONT_
+Composition:
+Env = Env.RobotArm || Env.Oven || Env.Drill || Env.Press || Env.Tray || Env.0:Product || Env.1:Product || Env.CONT_
+State Space:
+ 25 * 2 * 2 * 2 * 1 * 6 * 6 * 5852 = 2 ** 27
+Composing...
+-- States: 5852 Transitions: 11092 Memory used: 218713K
+Composed in 94ms
+
+Composition:
+CONT11 = Env || BakeProduct || BakeOnce1 || DontPutWithNoMeanD || DontPutWithNoMeanO || PickupRule || ProductMustProcess0 || DontMoveWithNoMeanP || PressOnce1 || DontMoveWithNoMeanT || PressProduct || PICKONCE || DrillOnce0 || ProcessOrder1 || PUTONCE || ProductMustProcess1 || ProcessOrder0 || DontPutWithNoMeanP || DontMoveWithNoMeanD || DrillToProduct || DontPickupUnderProcessingO || DrillOnce1 || DontPickupUnderProcessingD || DontMoveWithNoMeanO || DontPickupUnderProcessingP || BakeOnce0 || PressOnce0
+State Space:
+ 5852 * 4 * 4 * 4 * 4 * 2 * 8 * 2 * 4 * 2 * 4 * 2 * 4 * 4 * 2 * 8 * 4 * 4 * 2 * 4 * 16 * 4 * 16 * 2 * 16 * 4 * 4 = 2 ** 66
+Composing...
+-- States: 5852 Transitions: 11092 Memory used: 167684K
+Composed in 93ms
+Solving the LTS control problem.
+Environment states: 5852
+Game states: 5852
+Analysis time: 438ms.
+Controller [5852] generated successfully.
+================================================CONT10===================================================
+Composing...
+-- States: 10000 Transitions: 48539 Memory used: 317323K
+-- States: 20000 Transitions: 94253 Memory used: 317323K
+-- States: 30000 Transitions: 141068 Memory used: 355390K
+-- States: 40000 Transitions: 194818 Memory used: 355390K
+-- States: 50000 Transitions: 244110 Memory used: 393457K
+-- States: 60000 Transitions: 291483 Memory used: 393457K
+-- States: 70000 Transitions: 339220 Memory used: 393457K
+-- States: 80000 Transitions: 387032 Memory used: 431524K
+-- States: 90000 Transitions: 433565 Memory used: 431524K
+-- States: 100000 Transitions: 484313 Memory used: 469591K
+-- States: 110000 Transitions: 535220 Memory used: 469591K
+-- States: 114036 Transitions: 556403 Memory used: 507658K
+Composed in 360ms
+Solving the LTS control problem.
+Environment states: 114037
+Game states: 114037
+Analysis time: 11812ms.
+Controller [7047] generated successfully.
+
+Compiled: RobotArm
+Compiled: Oven
+Compiled: Drill
+Compiled: Press
+Compiled: Tray
+Compiled: Product
+Compiled: CONT_
+Composition:
+Env = Env.RobotArm || Env.Oven || Env.Drill || Env.Press || Env.Tray || Env.0:Product || Env.1:Product || Env.CONT_
+State Space:
+ 25 * 2 * 2 * 2 * 1 * 6 * 6 * 7047 = 2 ** 27
+Composing...
+-- States: 7047 Transitions: 14867 Memory used: 204065K
+Composed in 94ms
+
+Composition:
+CONT11 = Env || BakeOnce0 || PressProduct || DrillToProduct || ProcessOrder1 || DontPutWithNoMeanO || PICKONCE || DontPickupUnderProcessingO || PressOnce1 || DontPutWithNoMeanP || DrillOnce0 || PUTONCE || BakeProduct || PressOnce0 || DontPickupUnderProcessingD || ProductMustProcess1 || DontMoveWithNoMeanT || DontMoveWithNoMeanD || DontMoveWithNoMeanP || PickupRule || DontMoveWithNoMeanO || BakeOnce1 || DontPickupUnderProcessingP || DontPutWithNoMeanD || DrillOnce1 || ProcessOrder0 || ProductMustProcess0
+State Space:
+ 7047 * 4 * 4 * 4 * 4 * 4 * 2 * 16 * 4 * 4 * 4 * 2 * 4 * 4 * 16 * 8 * 2 * 2 * 2 * 2 * 2 * 4 * 16 * 4 * 4 * 4 * 8 = 2 ** 66
+Composing...
+-- States: 6584 Transitions: 13846 Memory used: 190952K
+Composed in 94ms
+Solving the LTS control problem.
+Environment states: 6585
+Game states: 6585
+Analysis time: 391ms.
+Controller [5856] generated successfully.
+================================================CONT9===================================================
+Composition:
+CONT9 = Env_ || PressProduct || ProductMustProcess1 || DontMoveWithNoMeanO || PressOnce0 || DontMoveWithNoMeanT || PickupRule || DontPickupUnderProcessingD || ProductMustProcess0 || DontPutWithNoMeanD || ProcessOrder1 || DontMoveWithNoMeanD || DrillOnce0 || BakeOnce1 || ProcessOrder0 || DontPutWithNoMeanP || DontPickupUnderProcessingP || DrillToProduct || BakeProduct || BakeOnce0 || DontPutWithNoMeanO || DrillOnce1 || DontPickupUnderProcessingO || PressOnce1 || PICKONCE || PUTONCE
+State Space:
+ 6941 * 4 * 8 * 2 * 4 * 2 * 2 * 16 * 8 * 4 * 4 * 2 * 4 * 4 * 4 * 4 * 16 * 4 * 4 * 4 * 4 * 4 * 16 * 4 * 2 * 2 = 2 ** 65
+Composing...
+-- States: 10000 Transitions: 53696 Memory used: 617142K
+-- States: 20000 Transitions: 103930 Memory used: 617142K
+-- States: 30000 Transitions: 150051 Memory used: 617142K
+-- States: 40000 Transitions: 195610 Memory used: 617142K
+-- States: 50000 Transitions: 241759 Memory used: 617142K
+-- States: 60000 Transitions: 287191 Memory used: 617142K
+-- States: 70000 Transitions: 335837 Memory used: 617142K
+-- States: 80000 Transitions: 383057 Memory used: 731102K
+-- States: 90000 Transitions: 430183 Memory used: 731102K
+-- States: 100000 Transitions: 482270 Memory used: 731102K
+-- States: 110000 Transitions: 531138 Memory used: 731102K
+-- States: 115433 Transitions: 561198 Memory used: 731102K
+Composed in 469ms
+Solving the LTS control problem.
+Environment states: 115434
+Game states: 115434
+Analysis time: 34482ms.
+Controller [27882] generated successfully.
+
+Compiled: RobotArm
+Compiled: Oven
+Compiled: Drill
+Compiled: Press
+Compiled: Tray
+Compiled: Product
+Compiled: CONT_
+Composition:
+Env = Env.RobotArm || Env.Oven || Env.Drill || Env.Press || Env.Tray || Env.0:Product || Env.1:Product || Env.CONT_
+State Space:
+ 25 * 2 * 2 * 2 * 1 * 6 * 6 * 27882 = 2 ** 29
+Composing...
+-- States: 10000 Transitions: 17897 Memory used: 363426K
+-- States: 20000 Transitions: 38323 Memory used: 363426K
+-- States: 27882 Transitions: 54500 Memory used: 380605K
+Composed in 219ms
+
+Composition:
+CONT11 = Env || DontMoveWithNoMeanT || DontPickupUnderProcessingP || ProcessOrder1 || PressOnce0 || DontMoveWithNoMeanP || DrillOnce1 || DontPutWithNoMeanP || DontMoveWithNoMeanD || DrillToProduct || PressProduct || BakeOnce1 || DontPutWithNoMeanO || PICKONCE || PickupRule || ProductMustProcess1 || DontMoveWithNoMeanO || DontPutWithNoMeanD || DontPickupUnderProcessingD || ProcessOrder0 || PressOnce1 || DrillOnce0 || PUTONCE || ProductMustProcess0 || BakeProduct || BakeOnce0 || DontPickupUnderProcessingO
+State Space:
+ 27882 * 2 * 16 * 4 * 4 * 2 * 4 * 4 * 2 * 4 * 4 * 4 * 4 * 2 * 2 * 8 * 2 * 4 * 16 * 4 * 4 * 4 * 2 * 8 * 4 * 4 * 16 = 2 ** 68
+Composing...
+-- States: 10000 Transitions: 18741 Memory used: 339289K
+-- States: 20000 Transitions: 39190 Memory used: 339289K
+-- States: 24821 Transitions: 49350 Memory used: 361985K
+Composed in 187ms
+Solving the LTS control problem.
+Environment states: 24822
+Game states: 24822
+Analysis time: 1235ms.
+Controller [5852] generated successfully.
+================================================CONT8===================================================
+Composition:
+CONT8 = Env_ || PressOnce0 || PUTONCE || DontPickupUnderProcessingP || ProcessOrder0 || DontMoveWithNoMeanD || PressProduct || BakeOnce1 || DontMoveWithNoMeanP || ProductMustProcess0 || DontPutWithNoMeanD || DontPutWithNoMeanP || DrillOnce0 || PressOnce1 || BakeProduct || DrillToProduct || DontPickupUnderProcessingD || DontPutWithNoMeanO || DontMoveWithNoMeanT || ProcessOrder1 || BakeOnce0 || PickupRule || PICKONCE || DontPickupUnderProcessingO || ProductMustProcess1 || DrillOnce1
+State Space:
+ 6941 * 4 * 2 * 16 * 4 * 2 * 4 * 4 * 2 * 8 * 4 * 4 * 4 * 4 * 4 * 4 * 16 * 4 * 2 * 4 * 4 * 2 * 2 * 16 * 8 * 4 = 2 ** 65
+Composing...
+-- States: 10000 Transitions: 48922 Memory used: 216554K
+-- States: 20000 Transitions: 94255 Memory used: 216554K
+-- States: 30000 Transitions: 141900 Memory used: 254516K
+-- States: 40000 Transitions: 196990 Memory used: 254516K
+-- States: 50000 Transitions: 245923 Memory used: 406364K
+-- States: 60000 Transitions: 292782 Memory used: 406364K
+-- States: 70000 Transitions: 337270 Memory used: 406364K
+-- States: 80000 Transitions: 386614 Memory used: 444326K
+-- States: 90000 Transitions: 433243 Memory used: 444326K
+-- States: 100000 Transitions: 483756 Memory used: 482288K
+-- States: 110000 Transitions: 535079 Memory used: 482288K
+-- States: 114107 Transitions: 556795 Memory used: 520250K
+Composed in 349ms
+Solving the LTS control problem.
+Environment states: 114108
+Game states: 114108
+Analysis time: 65952ms.
+Controller [25873] generated successfully.
+
+Compiled: RobotArm
+Compiled: Oven
+Compiled: Drill
+Compiled: Press
+Compiled: Tray
+Compiled: Product
+Compiled: CONT_
+Composition:
+Env = Env.RobotArm || Env.Oven || Env.Drill || Env.Press || Env.Tray || Env.0:Product || Env.1:Product || Env.CONT_
+State Space:
+ 25 * 2 * 2 * 2 * 1 * 6 * 6 * 25873 = 2 ** 29
+Composing...
+-- States: 10000 Transitions: 18206 Memory used: 271852K
+-- States: 20000 Transitions: 37999 Memory used: 271852K
+-- States: 25873 Transitions: 50096 Memory used: 289032K
+Composed in 203ms
+
+Composition:
+CONT11 = Env || PressOnce1 || BakeOnce0 || ProcessOrder0 || DrillOnce0 || DontMoveWithNoMeanT || DontPickupUnderProcessingD || DontMoveWithNoMeanP || ProductMustProcess0 || ProductMustProcess1 || DrillToProduct || BakeOnce1 || DontPickupUnderProcessingP || PressOnce0 || DontPickupUnderProcessingO || DontPutWithNoMeanO || DontMoveWithNoMeanO || PUTONCE || PressProduct || PICKONCE || DontMoveWithNoMeanD || BakeProduct || ProcessOrder1 || DontPutWithNoMeanD || DontPutWithNoMeanP || DrillOnce1 || PickupRule
+State Space:
+ 25873 * 4 * 4 * 4 * 4 * 2 * 16 * 2 * 8 * 8 * 4 * 4 * 16 * 4 * 16 * 4 * 2 * 2 * 4 * 2 * 2 * 4 * 4 * 4 * 4 * 4 * 2 = 2 ** 68
+Composing...
+-- States: 10000 Transitions: 18543 Memory used: 220302K
+-- States: 20000 Transitions: 38833 Memory used: 333915K
+-- States: 24017 Transitions: 47254 Memory used: 356638K
+Composed in 203ms
+Solving the LTS control problem.
+Environment states: 24018
+Game states: 24018
+Analysis time: 1094ms.
+Controller [5852] generated successfully.
+

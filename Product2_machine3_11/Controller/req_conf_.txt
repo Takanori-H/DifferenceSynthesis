@@ -1,0 +1,11 @@
+case10:DontMoveWithNoMeanT.txt
+case9:DontMoveWithNoMeanP.txt
+case8:DontMoveWithNoMeanO.txt
+case7:DontMoveWithNoMeanD.txt
+case6:DontMoveWithNoMeanP.txt,DontMoveWithNoMeanT.txt
+case5:DontMoveWithNoMeanO.txt,DontMoveWithNoMeanT.txt
+case4:DontMoveWithNoMeanD.txt,DontMoveWithNoMeanT.txt
+case3:DontMoveWithNoMeanP.txt,DontMoveWithNoMeanT.txt,DontMoveWithNoMeanO.txt
+case2:DontMoveWithNoMeanP.txt,DontMoveWithNoMeanT.txt,DontMoveWithNoMeanD.txt
+case1:DontMoveWithNoMeanD.txt,DontMoveWithNoMeanT.txt,DontMoveWithNoMeanO.txt
+case0:DontMoveWithNoMeanP.txt,DontMoveWithNoMeanT.txt,DontMoveWithNoMeanO.txt,DontMoveWithNoMeanD.txt

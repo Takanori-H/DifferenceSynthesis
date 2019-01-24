@@ -1,0 +1,201 @@
+Process:
+	LEVEL5_C
+States:
+	143
+Transitions:
+	LEVEL5_C = Q0,
+	Q0	= (arrive.w -> Q20),
+	Q1	= (reset -> Q20),
+	Q2	= (arrive.w -> Q33),
+	Q3	= (move.e -> Q64),
+	Q4	= (move.w -> Q77),
+	Q5	= (move.e -> Q51
+		  |pickup -> Q122),
+	Q6	= (move.e -> Q58
+		  |pickup -> Q100),
+	Q7	= (arrive.e -> Q14),
+	Q8	= (move.w -> Q106),
+	Q9	= (arrive.e -> Q140),
+	Q10	= (pickupsuccess -> Q112),
+	Q11	= (move.w -> Q2
+		  |ended -> Q87),
+	Q12	= (reset -> Q4),
+	Q13	= (arrive.e -> Q21),
+	Q14	= (pickup -> Q124),
+	Q15	= (move.e -> Q59),
+	Q16	= (move.w -> Q28
+		  |move.e -> Q54),
+	Q17	= (putsuccess -> Q61),
+	Q18	= (move.w -> Q95),
+	Q19	= (move.e -> Q62),
+	Q20	= (move.e -> Q69),
+	Q21	= (move.w -> Q119),
+	Q22	= (arrive.e -> Q67),
+	Q23	= (putsuccess -> Q66),
+	Q24	= (ended -> Q65
+		  |move.e -> Q81
+		  |move.w -> Q118),
+	Q25	= (arrive.w -> Q78),
+	Q26	= (move.w -> Q34
+		  |move.e -> Q57
+		  |ended -> Q107),
+	Q27	= (arrive.e -> Q46),
+	Q28	= (arrive.w -> Q75
+		  |arrive.m -> Q110),
+	Q29	= (reset -> Q20),
+	Q30	= (putdown -> Q35
+		  |move.w -> Q142),
+	Q31	= (arrive.e -> Q67),
+	Q32	= (arrive.e -> Q117),
+	Q33	= (ended -> Q80),
+	Q34	= (arrive.m -> Q11
+		  |arrive.w -> Q78),
+	Q35	= (putsuccess -> Q93),
+	Q36	= (arrive.e -> Q48),
+	Q37	= (reset -> Q6),
+	Q38	= (arrive.w -> Q86),
+	Q39	= (arrive.e -> Q48),
+	Q40	= (arrive.w -> Q89
+		  |arrive.m -> Q105),
+	Q41	= (reset -> Q18),
+	Q42	= (move.e -> Q72
+		  |pickup -> Q127),
+	Q43	= (arrive.w -> Q104),
+	Q44	= (arrive.e -> Q99
+		  |arrive.m -> Q120),
+	Q45	= (ended -> Q96),
+	Q46	= (ended -> Q88),
+	Q47	= (putsuccess -> Q86),
+	Q48	= (ended -> Q84),
+	Q49	= (arrive.w -> Q33),
+	Q50	= (ended -> Q12
+		  |move.w -> Q40
+		  |move.e -> Q98),
+	Q51	= (arrive.e -> Q117),
+	Q52	= (pickupsuccess -> Q123),
+	Q53	= (reset -> Q15),
+	Q54	= (arrive.e -> Q112),
+	Q55	= (putsuccess -> Q93),
+	Q56	= (reset -> Q4),
+	Q57	= (arrive.e -> Q123),
+	Q58	= (arrive.e -> Q116),
+	Q59	= (arrive.e -> Q116),
+	Q60	= (arrive.w -> Q141),
+	Q61	= (move.e -> Q94
+		  |move.w -> Q114),
+	Q62	= (arrive.m -> Q3
+		  |arrive.e -> Q117),
+	Q63	= (arrive.m -> Q8
+		  |arrive.w -> Q104),
+	Q64	= (arrive.e -> Q14),
+	Q65	= (reset -> Q20),
+	Q66	= (move.w -> Q97
+		  |move.e -> Q139),
+	Q67	= (pickup -> Q125),
+	Q68	= (arrive.w -> Q30),
+	Q69	= (arrive.m -> Q111
+		  |arrive.e -> Q116),
+	Q70	= (move.e -> Q128),
+	Q71	= (putsuccess -> Q126),
+	Q72	= (arrive.e -> Q5),
+	Q73	= (arrive.w -> Q129),
+	Q74	= (putdown -> Q91),
+	Q75	= (move.w -> Q43
+		  |putdown -> Q71),
+	Q76	= (arrive.w -> Q24),
+	Q77	= (arrive.m -> Q115
+		  |arrive.w -> Q129),
+	Q78	= (move.w -> Q49
+		  |putdown -> Q101
+		  |ended -> Q130),
+	Q79	= (reset -> Q18),
+	Q80	= (reset -> Q136),
+	Q81	= (arrive.m -> Q132
+		  |arrive.e -> Q140),
+	Q82	= (arrive.w -> Q74),
+	Q83	= (arrive.w -> Q104),
+	Q84	= (reset -> Q6),
+	Q85	= (reset -> Q15),
+	Q86	= (ended -> Q1),
+	Q87	= (reset -> Q18),
+	Q88	= (reset -> Q4),
+	Q89	= (move.w -> Q25
+		  |putdown -> Q55
+		  |ended -> Q121),
+	Q90	= (arrive.w -> Q74),
+	Q91	= (putsuccess -> Q19),
+	Q92	= (reset -> Q6),
+	Q93	= (move.w -> Q38
+		  |ended -> Q135
+		  |move.e -> Q137),
+	Q94	= (arrive.e -> Q5
+		  |arrive.m -> Q108),
+	Q95	= (arrive.w -> Q129),
+	Q96	= (reset -> Q15),
+	Q97	= (arrive.w -> Q61),
+	Q98	= (arrive.e -> Q26),
+	Q99	= (ended -> Q37
+		  |pickup -> Q102
+		  |move.e -> Q134),
+	Q100	= (pickupsuccess -> Q16),
+	Q101	= (putsuccess -> Q86),
+	Q102	= (pickupsuccess -> Q123),
+	Q103	= (move.w -> Q60),
+	Q104	= (move.w -> Q68
+		  |putdown -> Q131),
+	Q105	= (ended -> Q79
+		  |move.w -> Q113),
+	Q106	= (arrive.w -> Q30),
+	Q107	= (reset -> Q4),
+	Q108	= (move.e -> Q32),
+	Q109	= (arrive.w -> Q33
+		  |arrive.m -> Q133),
+	Q110	= (move.w -> Q83),
+	Q111	= (move.e -> Q22),
+	Q112	= (move.e -> Q13
+		  |move.w -> Q63),
+	Q113	= (arrive.w -> Q78),
+	Q114	= (arrive.w -> Q19),
+	Q115	= (move.w -> Q82),
+	Q116	= (pickup -> Q10
+		  |move.e -> Q31),
+	Q117	= (move.e -> Q7
+		  |pickup -> Q52),
+	Q118	= (arrive.w -> Q93),
+	Q119	= (arrive.w -> Q30
+		  |arrive.m -> Q103),
+	Q120	= (move.e -> Q9
+		  |ended -> Q53),
+	Q121	= (reset -> Q136),
+	Q122	= (pickupsuccess -> Q26),
+	Q123	= (move.e -> Q27
+		  |ended -> Q56
+		  |move.w -> Q109),
+	Q124	= (pickupsuccess -> Q46),
+	Q125	= (pickupsuccess -> Q21),
+	Q126	= (ended -> Q29
+		  |move.e -> Q44
+		  |move.w -> Q76),
+	Q127	= (pickupsuccess -> Q50),
+	Q128	= (arrive.e -> Q5),
+	Q129	= (putdown -> Q17
+		  |move.w -> Q90),
+	Q130	= (reset -> Q136),
+	Q131	= (putsuccess -> Q24),
+	Q132	= (move.e -> Q36
+		  |ended -> Q85),
+	Q133	= (ended -> Q41),
+	Q134	= (arrive.e -> Q140),
+	Q135	= (reset -> Q20),
+	Q136	= (putdown -> Q23
+		  |move.w -> Q73),
+	Q137	= (arrive.m -> Q45
+		  |arrive.e -> Q48),
+	Q138	= (pickupsuccess -> Q46),
+	Q139	= (arrive.e -> Q42
+		  |arrive.m -> Q70),
+	Q140	= (move.e -> Q39
+		  |ended -> Q92
+		  |pickup -> Q138),
+	Q141	= (putdown -> Q47),
+	Q142	= (arrive.w -> Q141).

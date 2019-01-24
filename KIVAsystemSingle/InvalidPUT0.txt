@@ -1,0 +1,3 @@
+InvalidPUT0 = Q0,
+	Q0	= ([0].put -> ERROR
+		  |{[0].pick, reset} -> Q0).

@@ -1,0 +1,20 @@
+Process:
+	ProcessOrder0
+States:
+	4
+Transitions:
+	ProcessOrder0 = Q0,
+	Q0	= ([0].endPress -> ERROR
+		  |[0].reset -> Q0
+		  |[0].endBaking -> Q1
+		  |[0].endDrill -> Q2),
+	Q1	= ([0].endPress -> ERROR
+		  |[0].reset -> Q0
+		  |[0].endBaking -> Q1
+		  |[0].endDrill -> Q3),
+	Q2	= ([0].endPress -> ERROR
+		  |[0].reset -> Q0
+		  |[0].endDrill -> Q2
+		  |[0].endBaking -> Q3),
+	Q3	= ([0].reset -> Q0
+		  |[0].{endBaking, endDrill, endPress} -> Q3).

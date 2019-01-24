@@ -1,0 +1,21 @@
+GOAL10 = Q0,
+	Q0	= ([1].arriveReplenish[1] -> ERROR
+		  |{[1].{move.n, put}, reset} -> Q0
+		  |[1].arrive[1][1] -> Q1
+		  |[1].pick -> Q2),
+	Q1	= ([1].arriveReplenish[1] -> ERROR
+		  |reset -> Q0
+		  |[1].{arrive[1][1], move.n, put} -> Q1
+		  |[1].pick -> Q3),
+	Q2	= ([1].arriveReplenish[1] -> ERROR
+		  |{[1].put, reset} -> Q0
+		  |[1].{move.n, pick} -> Q2
+		  |[1].arrive[1][1] -> Q3),
+	Q3	= (reset -> Q0
+		  |[1].put -> Q1
+		  |[1].{arrive[1][1], move.n, pick} -> Q3
+		  |[1].arriveReplenish[1] -> Q4),
+	Q4	= ([1].put -> ERROR
+		  |reset -> Q0
+		  |[1].move.n -> Q3
+		  |[1].{arrive[1][1], arriveReplenish[1], pick} -> Q4).

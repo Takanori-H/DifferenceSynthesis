@@ -1,0 +1,12 @@
+moveTo.tray
+moveTo.oven
+moveTo.drill
+moveTo.press
+pickup
+putdown
+bake
+drill
+press
+[0].reset
+[1].reset
+[2].reset

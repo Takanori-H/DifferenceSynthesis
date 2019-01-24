@@ -1,0 +1,5 @@
+InvalidReturn2 = Q0,
+	Q0	= (reset -> Q0
+		  |[0].arrivePicking[0] -> Q1),
+	Q1	= ([0].arrivePicking[0] -> ERROR
+		  |reset -> Q0).

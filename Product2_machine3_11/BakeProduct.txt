@@ -1,0 +1,19 @@
+Process:
+	BakeProduct
+States:
+	4
+Transitions:
+	BakeProduct = Q0,
+	Q0	= (bake -> ERROR
+		  |[0..1].pickupSuccess.oven -> Q0
+		  |[0].putSuccess.oven -> Q1
+		  |[1].putSuccess.oven -> Q2),
+	Q1	= ([0].pickupSuccess.oven -> Q0
+		  |{[0].putSuccess.oven, [1].pickupSuccess.oven, bake} -> Q1
+		  |[1].putSuccess.oven -> Q3),
+	Q2	= ([1].pickupSuccess.oven -> Q0
+		  |{[0].pickupSuccess.oven, [1].putSuccess.oven, bake} -> Q2
+		  |[0].putSuccess.oven -> Q3),
+	Q3	= ([1].pickupSuccess.oven -> Q1
+		  |[0].pickupSuccess.oven -> Q2
+		  |{[0..1].putSuccess.oven, bake} -> Q3).

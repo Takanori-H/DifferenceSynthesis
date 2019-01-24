@@ -1,0 +1,4 @@
+DontMoveWithNoMeanD.txt
+DontMoveWithNoMeanO.txt
+DontMoveWithNoMeanP.txt
+DontMoveWithNoMeanT.txt

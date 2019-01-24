@@ -1,0 +1,19 @@
+Process:
+	DrillToProduct
+States:
+	4
+Transitions:
+	DrillToProduct = Q0,
+	Q0	= (drill -> ERROR
+		  |[0..1].pickupSuccess.drill -> Q0
+		  |[0].putSuccess.drill -> Q1
+		  |[1].putSuccess.drill -> Q2),
+	Q1	= ([0].pickupSuccess.drill -> Q0
+		  |{[0].putSuccess.drill, [1].pickupSuccess.drill, drill} -> Q1
+		  |[1].putSuccess.drill -> Q3),
+	Q2	= ([1].pickupSuccess.drill -> Q0
+		  |{[0].pickupSuccess.drill, [1].putSuccess.drill, drill} -> Q2
+		  |[0].putSuccess.drill -> Q3),
+	Q3	= ([1].pickupSuccess.drill -> Q1
+		  |[0].pickupSuccess.drill -> Q2
+		  |{[0..1].putSuccess.drill, drill} -> Q3).

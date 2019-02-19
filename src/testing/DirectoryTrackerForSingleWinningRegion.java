@@ -17,6 +17,7 @@ import java.util.Stack;
 
 import multiGR.GameSpace.ConcurrentSystemModelMaker;
 import multiGR.GameSpace.GameModel;
+import multiGR.GameSpace.TP2;
 import multiGR.GameSpace.TransitionParser;
 import multiGR.model.Model;
 import multiGR.model.State;
@@ -35,6 +36,8 @@ public class DirectoryTrackerForSingleWinningRegion {
 	private String targetError="";
 	private int[] checkerForMRP;
 	private String sep=File.separator;
+	private GameModel Game;
+	private TP2 tp2;
 
 
 	public DirectoryTrackerForSingleWinningRegion(String directory) {
@@ -123,10 +126,32 @@ public class DirectoryTrackerForSingleWinningRegion {
 
 		targetError=setDegradationTargets();
 
-		for(int i=0;i<reqs.size();i++){
+		for(int i=0;i<reqs.size();i++){//Game 5個作成
 			cmList.add(ConcurrentSystemModelMaker.makeConcurrentSystem(e, reqs.get(i),cas));
 		}
 		return cmList;
+	}
+
+	public GameModel getUpdateCModelFromDirectory(int level) {
+		File env;
+		reqs=new ArrayList<Model[]>();
+		if((env=searchEnvInDirectory())==null){
+			return null;
+		}
+		setControllableAction();
+		long start = System.currentTimeMillis();
+		FSP_FileReader reader;
+		reader=new FSP_FileReader(env);
+		e=reader.getModel();
+		reqs=getReqs();
+		targetError=setDegradationTargets();
+		long stop = System.currentTimeMillis();
+		System.out.println("File Reader Time: " + (stop-start) + "ms");
+		long start2 = System.currentTimeMillis();
+		Game = ConcurrentSystemModelMaker.makeConcurrentSystem(e, reqs.get(level),cas);
+		long stop2 = System.currentTimeMillis();
+		System.out.println("Game Create Time: " + (stop2-start2) + "ms");
+		return Game;
 	}
 
 
@@ -354,6 +379,84 @@ public class DirectoryTrackerForSingleWinningRegion {
 		return tp.checkDesignTimeSynthesis();
 	}
 
+	public void checkDCSUpdateEnv(String controller) {
+		if(cmList==null||cmList.isEmpty())getCModelFromDirectory();
+		FSP_FileReader reader=new FSP_FileReader(directory.getPath()+sep+"Controller"+sep+controller);//simulate用のController
+		c=reader.getModel();
+		tp = new TransitionParser(cmList);
+		firstCheck=true;
+		tp.checkDCSUpdateEnv(c);
+		return;
+	}
+
+	public void checkDCSUEnv(String controller, int level) {
+		int check;
+		long start=System.currentTimeMillis();
+		FSP_FileReader reader=new FSP_FileReader(directory.getPath()+sep+"Controller"+sep+controller);//simulate用のController
+		c=reader.getModel();
+		long stop = System.currentTimeMillis();
+		System.out.println("Spending time of Simulate Controller: " + (stop-start) + "ms");
+		long realstart = System.currentTimeMillis();
+		for(int i=0;i<level;i++) {
+			start=System.currentTimeMillis();
+			getUpdateCModelFromDirectory(i);
+			stop = System.currentTimeMillis();
+			System.out.println("Spending time of Game Create: " + (stop-start) + "ms");
+			tp2 = new TP2(Game, level-i);
+			firstCheck=true;
+			check=tp2.checkDCSUEnv(c);
+			if(check==0 || check==-1) {
+				continue;
+			}else {
+				break;
+			}
+		}
+		long realstop = System.currentTimeMillis();
+		System.out.println("Real Spending time: " + (realstop-realstart) + "ms");
+		return;
+	}
+
+	public void checkDCSUPCEnv(int level) {
+		int check;
+		long start=System.currentTimeMillis();
+		//FSP_FileReader reader=new FSP_FileReader(directory.getPath()+sep+"Controller"+sep+controller);//simulate用のController
+		//c=reader.getModel();
+		long stop = System.currentTimeMillis();
+		System.out.println("Spending time of Simulate Controller: " + (stop-start) + "ms");
+		long realstart = System.currentTimeMillis();
+		for(int i=0;i<level;i++) {
+			start=System.currentTimeMillis();
+			getUpdateCModelFromDirectory(i);
+			stop = System.currentTimeMillis();
+			System.out.println("Spending time of Game Create: " + (stop-start) + "ms");
+			tp2 = new TP2(Game, level-i);
+			firstCheck=true;
+			check=tp2.checkDCSUPCEnv();
+			if(check==0 || check==-1) {
+				continue;
+			}else {
+				break;
+			}
+		}
+		long realstop = System.currentTimeMillis();
+		System.out.println("Real Spending time: " + (realstop-realstart) + "ms");
+		return;
+	}
+
+	/*
+	 * public int checkSimulate(String controller){//全体の流れ
+		if(cmList==null||cmList.isEmpty()){
+			getCModelFromDirectory();//EnvとReqMoniからGameを作成
+		}
+		FSP_FileReader reader=new FSP_FileReader(directory.getPath()+sep+"Controller"+sep+controller);//simulate用のController
+		c=reader.getModel();
+		tp=new TransitionParser(cmList);//コンストラクタ引数List<GameModel>
+		firstCheck=true;
+		return tp.checkSimulate(c);
+
+	}
+	 */
+
 	/*public int[][] checkDifferentialControllerSynthesis() {
 		if(cmList==null||cmList.isEmpty())getCModelFromDirectory();
 		//FSP_FileReader reader=new FSP_FileReader(directory.getPath()+sep+"Controller"+sep+controller);//simulate用のController
@@ -404,6 +507,36 @@ public class DirectoryTrackerForSingleWinningRegion {
 			e.printStackTrace();
 		}
 		return nowlevel;
+	}
+
+	public int checkUpdateDiscreteControllerFromFile(String fileName){
+		//tp=new TransitionParser(cmList);
+		BufferedReader reader=null;
+		int nowlevel = -1;
+		try {
+			reader=new BufferedReader(new FileReader(new File(directory.getPath()+sep+"Controller"+sep+fileName)));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return nowlevel;
+		}
+		try {
+			String temp;
+			while((temp=reader.readLine())!=null){
+				nowlevel = checkUpdatedDiscreteController(temp);
+			}
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return nowlevel;
+	}
+
+	public int checkUpdatedDiscreteController(String updatedPart){
+		if(!modelUpdate(updatedPart))return -1;
+		tp.setCMList(cmList);
+		//tp=new TransitionParser(cmList);
+		return tp.checkDiscreteControllerSynthesis();
+		//return tp.checkUpdateControllerSynthesis();
 	}
 
 	/*

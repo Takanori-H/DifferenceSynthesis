@@ -122,7 +122,7 @@ public class ConcurrentSystemModelMaker {
 	private static List<GameState> getCandidate(Transition tr,
 			GameModel cm) {
 		List<GameState> l = new ArrayList<GameState>();
-		for (int i = 2; i < cm.getSize(); i++) {
+		for (int i = 0; i < cm.getSize(); i++) {
 			GameState cs = cm.getConcurrentState(i);
 			if (cs.getEnv()!=null&&cs.getEnv().equals(tr.getFrom().toString())) {
 				l.add(cs);

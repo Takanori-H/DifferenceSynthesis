@@ -25,8 +25,7 @@ public class DifferentialControllerSynthesisTestOnAutomatedWarehouse {
 				{"case10.txt","case3.txt"},
 				{"case10.txt","case3.txt","case2.txt"},
 				{"case10.txt","case4.txt","case2.txt"},
-				{"case10.txt","case4.txt","case2.txt","case3.txt"},
-				{"case10.txt"}
+				{"case10.txt","case4.txt","case2.txt","case3.txt"}
 		};
 		int[] expected={5,4,3,2,4,3,1,2,1,4,2,3,3,2,1};
 		//cases[0]={{level, State, Transition}, {1, 67, 103, 21ms}, {2, 75, 104, 27ms}, {3, 81, 119, 24ms}, {4, 55, 76, 48ms}, {5, 125, 161, 60ms}, {nowlevel, 5}}

@@ -29,17 +29,11 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 	HashMap<Integer,GameModel> GameList;//レベルとゲームモデルを管理
 	int max;//最高レベル
 	int now;//今動いているコントローラのレベル
-	List<State> WRETmp;
 	List<State> WRCTmp;
 	List<State> WRCnow;
-	List<State> deltaWRE;
-	HashMap<Integer,List<State>> WRE;//環境側のWinning Region
+	List<State> deltaWRC;
 	HashMap<Integer,List<State>> WRC;//コントローラ側のWinning Region
-	//HashMap<GameModel,List<State>> WSC;//コントローラ側のWinning Strategy
-	//List<State> C;
-	//List<List<State>> Controllers;
 	HashMap<String,State> C;
-	//List<HashMap<String,State>> Controllers;
 	HashMap<Integer,HashMap<String,State>> Controllers;
 	int flag;
 	List<Integer> nolevel;
@@ -55,32 +49,18 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 		for(int i=0;i<modelList.size();i++) {
 			GameList.put(modelList.size()-i,modelList.get(i));
 		}
-		WRETmp = new ArrayList<State>();
 		WRCTmp = new ArrayList<State>();
 		WRCnow = new ArrayList<State>();
-		WRE = new HashMap<Integer,List<State>>();
 		WRC = new HashMap<Integer,List<State>>();
-		//C = new ArrayList<State>();
-		//Controllers = new ArrayList<List<State>>();
 		C = new HashMap<String,State>();
-		//Controllers = new ArrayList<HashMap<String,State>>();
 		Controllers = new HashMap<Integer,HashMap<String,State>>();
 		nolevel = new ArrayList<Integer>();
 	}
 
 	public TransitionParser(List<GameModel> model, ModelInterface controller) {//update時に使ってる
 		this.modelList = model;
-		/*GameList = new HashMap<Integer,GameModel>();
-		for(int i=0;i<modelList.size();i++) {
-			GameList.put(modelList.size()-i,modelList.get(i));
-		}*/
 		this.controller = controller;
 	}
-
-	/*public TransitionParser(GameModel model) {
-		this.modelList = new ArrayList<GameModel>();
-		this.modelList.add(model);
-	}*/
 
 	public void setCMList(List<GameModel> modelList) {
 		this.modelList = modelList;
@@ -97,138 +77,9 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 		this.con = c;
 	}
 
-	/*private void doAllTransition(State current, String record, List<State> history) {
-		if (current.toString().equals("ERROR")) {//ERROR stateとはどういう状態?
-			//System.out.println(++trNum);// debug
-			record += "ERROR";
-			if (isController) {
-				this.transitionRecordsOfController.add(record);
-			} else {
-				this.transitionRecordsOfModel.add(record);
-			}
-			return;
-		} else if (history.contains(current)) {
-			//System.out.println(++trNum);// debug
-			record += "LOOP";
-			// System.out.println(record);//debug
-			if (isController) {
-				// this.transitionRecordsOfController.add(record);
-			} else {
-				// this.transitionRecordsOfModel.add(record);
-			}
-			return;
-		}//TransitionはERRORかLOOPで終わる？
-		history.add(current);
-		int transitionVariation = current.getToTransitionNum();
-		for (int i = 0; i < transitionVariation; i++) {
-			Transition t = current.getToTransition(i);
-			this.doAllTransition(t.getTo(), record + t.toString() + crlf, new ArrayList<State>(history));//再起
-		}
-	}*/
-
 	void setEliminatedLabel(List<String> eliminatedLabel) {
 		this.eliminatedLabel = eliminatedLabel;
 	}
-
-	/*boolean checkModelSimulateController(List<String> eLabel) {
-		setEliminatedLabel(eLabel);
-		int rank = -1;
-		for (int i = 0; i < modelList.size(); i++) {
-			if (this.checkSimulate(this.transitionRecordsOfController, this.modelList.get(i)) == true) {
-				rank = i;
-			}
-		}
-		return rank == -1;
-	}*/
-
-	/*boolean checkErrorSequensesSimulateController(List<String> s) {
-		List<String> ss = new ArrayList<String>();
-		for (int i = 0; i < s.size(); i++) {
-			String[] seq = s.get(i).split(crlf);
-			// String[] b=this.additionalTransitionSequences.split(crlf);
-			String b = this.additionalTransitionSequences.get(this.additionalTransitionSequences.size() - 1);
-			int c = seq.length - 1;
-			String a = seq[c];
-
-			while (!a.equals(b)) {
-				//System.out.println(a);// debug
-				a = seq[--c];
-			}
-
-			String sWithoutError = "";
-			for (int j = 0; j < c; j++) {
-				sWithoutError += seq[j] + crlf;
-			}
-			//System.out.println(sWithoutError);// debug
-			ss.add(sWithoutError);
-		}
-		setEliminatedLabel(new ArrayList<String>());
-		return this.checkSimulate(ss, controller);
-	}*/
-
-	/*boolean checkSimulate(List<String> transitionSequenses, ModelInterface model) {
-		boolean isSimulateWithNoError = true;
-		State current = model.getInitialState();
-		for (int i = 0; i < transitionSequenses.size(); i++) {// �S�J�ڗ��ΏۂɃ��[�v����
-			String[] tr = transitionSequenses.get(i).split(crlf);
-			for (int j = 0; j < tr.length; j++) {
-				if (!(tr[j].equals("ERROR")) && !(tr[j].equals("LOOP"))) {// �J�ڗ���̑S�J�ڂ����ԂɃ`�F�b�N
-					if (current.containsToTransition(tr[j])) {
-						//System.out.println("Choise of actions (controller's one is:+ tr[j] + ")");
-						for (int k = 0; k < current.getToTransitionNum(); k++) {// �J�ڂɂ���ĒH�蒅������Ԃ���ERROR�ɍs���\�����`�F�b�N
-							if (current.getToTransition(k).getTo().toString().equals("ERROR")) {
-								System.out.println("==============Caution!! This is ERROR state==============");
-								isSimulateWithNoError = false;
-							}
-						}
-						current = current.getToStateByTransition(tr[j]);
-
-					} else if (eliminatedLabel.contains(tr[j].toString())) {
-					} else {
-						return false;
-					}
-				}
-			}
-		}
-		return isSimulateWithNoError;
-	}*/
-
-	/*void startAllTransitionOfModel(int modelLevel) {
-		this.transitionRecordsOfModel = new ArrayList<String>();
-		this.isController = false;
-		doAllTransition(modelList.get(modelLevel).getInitialState(), "", new ArrayList<State>());
-	}*/
-
-	/*void startAllTransitionOfController() {
-		this.transitionRecordsOfController = new ArrayList<String>();
-		this.isController = true;
-		doAllTransition(controller.getInitialState(), "", new ArrayList<State>());
-	}*/
-
-	/*List<String> getTransitionRecords(int level) {
-		this.startAllTransitionOfModel(level);
-		return this.transitionRecordsOfModel;
-	}*/
-
-	/*String toAdditionalTransitionSequences() {
-		String a = "";
-		for (int i = 0; i < this.additionalTransitionSequences.size(); i++) {
-			a += this.additionalTransitionSequences.get(i) + this.crlf;
-		}
-		return a.trim();
-	}// */
-
-	/*void setAdditionaltransitionSequences(List<String> ts) {
-		this.additionalTransitionSequences = ts;
-	}*/
-
-	/*boolean checkContainingSequences(String target) {
-		return target.contains(this.toAdditionalTransitionSequences());
-	}// */
-
-	/*String getTransitionSeqence() {
-		return transitionSequence;
-	}*/
 
 	void setModelList(List<GameModel> modelList) {
 		this.modelList = modelList;
@@ -239,7 +90,6 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 	}
 
 	void pasteController(List<String> l) {
-		//System.out.println("pasteController");
 		this.setEliminatedLabel(l);
 		for (ModelInterface model : modelList) {
 			pasteCToState(controller.getInitialState(), model.getInitialState());
@@ -381,82 +231,6 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 		}
 	}
 
-	/*void pasteDead() {//重要
-		for (ModelInterface model : modelList) {
-			State er = model.getErrorState();//各levelのゲームのERROR stateは一つにまとめられている
-			er.setIsDead();//ERROR stateのisDeadをtrueにする
-			for (int i = 0; i < er.getFromTransitionNum(); i++) {
-				// System.out.println("here is "+i+" times");
-				pasteDToTransition(er.getFromTransition(i));//バックワードプロパゲーション
-			}
-		}
-		//System.out.println("pasteDeadEnd");// debug
-	}*/
-
-	/*
-	List<State> IdentifyWR(GameModel model, int level) {
-		WRETmp = new ArrayList<State>();
-		WRCTmp = new ArrayList<State>();
-		count = 0;
-		State er = model.getErrorState();
-		er.setIsDead();
-		count++;
-		WRETmp.add(er);
-		for(int i=0;i<er.getFromTransitionNum();i++) {
-			pasteDToTransition(er.getFromTransition(i));
-		}
-		System.out.println("WRETmp " + WRETmp.size());
-		System.out.println("count " + count);
-		System.out.println();
-		WRE.put(level, WRETmp);
-		State initial = model.getInitialState();
-		for(int i=0;i<model.getSize();i++) {
-			State tmp = model.getState(i);
-			if(tmp==initial) {
-				State change = WRCTmp.get(0);
-				if(!WRETmp.contains(tmp))WRCTmp.set(0, tmp);
-				WRCTmp.add(change);
-			}else if(!WRETmp.contains(tmp))WRCTmp.add(tmp);
-		}
-		WRC.put(level, WRCTmp);
-		return WRCTmp;
-	}
-	*/
-	void pasteDeadFromConcurrentSystem() {//IdentifyWR
-		for (GameModel model : modelList) {
-			int level=0;
-			for(int i=max;i>0;i++) {
-				if(GameList.get(i)==model)level=i;
-			}
-			WRETmp = new ArrayList<State>();
-			WRCTmp = new ArrayList<State>();
-			count = 0;
-			State er = model.getErrorState();//各levelのゲームのERROR stateは一つにまとめられている
-			//System.out.println("ERROR:" + er + level);
-			er.setIsDead();//ERROR stateのisDeadをtrueにする
-			WRETmp.add(er);
-			count++;
-			for (int i = 0; i < er.getFromTransitionNum(); i++) {
-				//System.out.println("here is "+i+" times");
-				pasteDToTransition(er.getFromTransition(i));//バックワードプロパゲーション
-			}
-			System.out.println("WRETmp " + WRETmp.size());
-			System.out.println("count " + count);
-			System.out.println();
-			WRE.put(level, WRETmp);
-			State initial = model.getInitialState();
-			for(int i=0;i<model.getSize();i++) {
-				State tmp = model.getState(i);
-				if(tmp==initial) {
-					State change = WRCTmp.get(0);
-					if(!WRETmp.contains(tmp))WRCTmp.set(0, tmp);
-					WRCTmp.add(change);
-				}else if(!WRETmp.contains(tmp))WRCTmp.add(tmp);
-			}
-			WRC.put(level, WRCTmp);
-		}
-	}
-
 	void DesignTimeSynthesis() {
 		int level = max;
 		List<State> WRClevel;
@@ -565,38 +339,34 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 	}
 
 	List<State> IdentifyWR(GameModel model, int level) {
-		WRETmp = new ArrayList<State>();
 		WRCTmp = new ArrayList<State>();
 		count = 0;
 		State er = model.getErrorState();
 		er.setIsDead();
 		count++;
-		WRETmp.add(er);
 		for(int i=0;i<er.getFromTransitionNum();i++) {
 			pasteDToTransition(er.getFromTransition(i));
 		}
-//		/*
 		System.out.println("Level: " + level);
 		System.out.println("GameState: " + model.getSize());
-		System.out.println("WRETmp: " + WRETmp.size());
 		System.out.println("count: " + count);
-//		*/
-		WRE.put(level, WRETmp);
 		State initial = model.getInitialState();
-		for(int i=0;i<model.getSize();i++) {
-			State tmp = model.getState(i);
-			if(tmp==initial && WRCTmp.size()>0) {
-				State change = WRCTmp.get(0);
-				if(!WRETmp.contains(tmp))WRCTmp.set(0, tmp);
-				WRCTmp.add(change);
-			}else if(!WRETmp.contains(tmp))WRCTmp.add(tmp);
+		WRCTmp.add(initial);
+		for(int i=0;i<initial.getToTransitionNum();i++) {
+			countWRC(initial.getToTransition(i).getTo());
 		}
-//		/*
 		System.out.println("WRCTmp: " + WRCTmp.size());
 		System.out.println();
-//		*/
 		WRC.put(level, WRCTmp);
 		return WRCTmp;
+	}
+
+	void countWRC(State tmp) {
+		if(tmp.isDead() || WRCTmp.contains(tmp))return;
+		WRCTmp.add(tmp);
+		for(int i=0;i<tmp.getToTransitionNum();i++) {
+			countWRC(tmp.getToTransition(i).getTo());
+		}
 	}
 
 	void pasteDToTransition(Transition m) {
@@ -617,7 +387,7 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 			//System.out.println("  Transition:"+t+" isControllable:"+t.isControllable()+" isDead:"+t.isDead());
 			if (!t.isControllable() && t.isDead()) {//UnControllable Actionで環境側のWinning Regionに繋がるならば
 				m.setIsDead();//そのStateはDead
-				WRETmp.add(m);
+				//WRETmp.add(m);
 				count++;
 				//System.out.println("Dead state:["+m+"]");//debug
 				for (int j = 0; j < m.getFromTransitionNum(); j++) {
@@ -631,7 +401,7 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 
 		if (dead) {
 			m.setIsDead();
-			WRETmp.add(m);
+			//WRETmp.add(m);
 			count++;
 		}
 		//System.out.println(" isDead:"+m.isDead());
@@ -802,119 +572,39 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 			}
 			List<Transition> l = model.getUpdatedPart();
 			//System.out.println("update pasteDeadEnd for model"+j--);
-			WRETmp = new ArrayList<State>();
+//			WRETmp = new ArrayList<State>();
 			WRCTmp = new ArrayList<State>();
-			deltaWRE = new ArrayList<State>();
-			WRETmp = WRE.get(level);
+//			deltaWRE = new ArrayList<State>();
+//			WRETmp = WRE.get(level);
 			for (int i = 0; i < l.size(); i++) {
 				if (l.get(i).getTo().isDead()) {
 				//	System.out.println("  pasteDead "+l.get(i)+"->"+l.get(i).getTo());
 					pasteUpdateDToTransition(l.get(i));
 				}
 			}
-			WRE.put(level, WRETmp);
+//			WRE.put(level, WRETmp);
 			State initial = model.getInitialState();
 			for(int i=0;i<model.getSize();i++) {
 				State tmp = model.getState(i);
 				if(tmp==initial && WRCTmp.size()>0) {
 					State change = WRCTmp.get(0);
-					if(!WRETmp.contains(tmp))WRCTmp.set(0, tmp);
+//					if(!WRETmp.contains(tmp))WRCTmp.set(0, tmp);
 					WRCTmp.add(change);
-				}else if(!WRETmp.contains(tmp))WRCTmp.add(tmp);
+				}//else if(!WRETmp.contains(tmp))WRCTmp.add(tmp);
 			}
 			System.out.println(model.getSize());
-			System.out.println(WRETmp.size());
-			System.out.println(deltaWRE.size());
+//			System.out.println(WRETmp.size());
+//			System.out.println(deltaWRE.size());
 			System.out.println(WRCTmp.size());
 			WRC.put(level, WRCTmp);
 		}
 	}
 
-	void DiscreteControllerSynthesis() {
-		int level = now;//緩和だけならnowからで良い 全部やる必要があるのか？
-		int nowClevel = now;
-		List<State> deltaWRElevel = new ArrayList<State>();
-		while(level>0) {
-			System.out.println(level);
-			if(nolevel.contains(level)) {
-				level--;
-				continue;
-			}
-			long start2 = System.currentTimeMillis();
-			GameModel model = GameList.get(level);
-			//long tmp1 = System.currentTimeMillis();
-			//System.out.println("Spending time: "+(tmp1-start2)+"ms");
-			deltaWRElevel = IdentifyUpdateWR(model, level);//updateGameとidentifyWR
-			//long tmp2 = System.currentTimeMillis();
-			//System.out.println("Spending time: "+(tmp2-start2)+"ms");
-			//deltaWRElevel = IdentifyWRRuntime(model, level);
-			if(WRCTmp.size()==0) {
-				Controllers.remove(level);
-				level--;
-				continue;
-			}
-			long start=System.currentTimeMillis();
-			generateController(WRCTmp, level);
-			long stop=System.currentTimeMillis();
-			System.out.print("Spending time of IdentifyUpdateWR+Synthesis");
-			System.out.println(":"+(stop-start2)+"ms, Synthesis of Controller Level "+level);
-			System.out.print("Spending time of ");
-			System.out.println(":"+(stop-start)+"ms, Synthesis of Controller Level "+level);
-			System.out.println();
-			level--;
-		}
-		for(int i=max;i>0;i--) {
-			if(Controllers.containsKey(i)) {
-				now = i;
-				break;
-			}
-		}
-		createUpdateSimulate(now);
-	}
-
-	List<State> IdentifyWRRuntime(GameModel model, int level) {//Updateがちゃんとできていない可能性あり
-		WRETmp = new ArrayList<State>();
-		WRCTmp = new ArrayList<State>();
-		deltaWRE = new ArrayList<State>();
-		WRETmp = WRE.get(level);
-		//System.out.println();
-		//WRCTmp = WRC.get(level);
-		List<Transition> l = model.getUpdatedPart();//updateはTransitionのみを考えている？
-		for(int i=0;i<l.size();i++) {
-			if(l.get(i).getTo().isDead()) {
-				pasteUpdateDToTransition(l.get(i));
-			}
-		}
-		WRE.put(level, WRETmp);
-		/*for(int i=0;i<model.getSize();i++) {//ゲーム上のStateと環境側のWinning Regionとの差集合を取る
-			State tmp = model.getState(i);
-			//System.out.println(tmp.getName());
-			if((!WRETmp.contains(tmp)) && (!WRCTmp.contains(tmp)))WRCTmp.add(tmp);//コントローラ側のWinning Regionが求まる
-		}*/
-		State initial = model.getInitialState();
-		for(int i=0;i<model.getSize();i++) {
-			State tmp = model.getState(i);
-			if(tmp==initial && WRCTmp.size()>0) {
-				State change = WRCTmp.get(0);
-				if(!WRETmp.contains(tmp))WRCTmp.set(0, tmp);
-				WRCTmp.add(change);
-			}else if(!WRETmp.contains(tmp))WRCTmp.add(tmp);
-		}
-		System.out.println("GameState: "+ model.getSize());
-		System.out.println("WRETmp: " + WRETmp.size());
-		System.out.println("deltaWRE: " + deltaWRE.size());
-		System.out.println("WRCTmp: " + WRCTmp.size());
-		WRC.put(level, WRCTmp);
-		//UpdateController(l,level);
-		return deltaWRE;
-		//return WRCTmp;
-	}
-
 	void DifferenceSynthesis() {
 		int level = now;//緩和だけならnowからで良い 全部やる必要があるのか？
 		int nowClevel = now;
-		List<State> deltaWRElevel = new ArrayList<State>();
-		HashMap<String,State> tmpC = new HashMap<String,State>();
+		List<State> deltaWRClevel = new ArrayList<State>();
+		//HashMap<String,State> tmpC = new HashMap<String,State>();
 		while(level>0) {
 			System.out.println(level);
 			if(nolevel.contains(level)) {
@@ -923,27 +613,10 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 			}
 			long start2 = System.currentTimeMillis();
 			GameModel model = GameList.get(level);
-			//long tmp1 = System.currentTimeMillis();
-			//System.out.println("Spending time: "+(tmp1-start2)+"ms");
-			deltaWRElevel = IdentifyUpdateWR(model, level);//updateGameとidentifyWR
-			//long stop=System.currentTimeMillis();
-			//System.out.println("Spending time of IdentifyWR+Synthesis: "+(stop-start2)+"ms");
-			//long tmp2 = System.currentTimeMillis();
-			//System.out.println("Spending time: "+(tmp2-start2)+"ms");
-			/*long free = Runtime.getRuntime().freeMemory() / (1024*1024);
-		    long total = Runtime.getRuntime().totalMemory() / (1024*1024);
-		    long max = Runtime.getRuntime().maxMemory() / (1024*1024);
-		    long used = total - free;
-		    double ratio = (used * 100 / (double)total);
-		    System.out.println("Java メモリ情報 : 合計=" + total + "MB、" +
-		    	    "使用量=" + used + "MB (" + ratio + "%)、" +
-		    	    "使用可能最大=" + max + "MB");*/
-			//generateController(deltaWRElevel,level);
+			deltaWRClevel = IdentifyUpdateWR(model, level);//updateGameとidentifyWR
 			long start=System.currentTimeMillis();
 			UpdateController(model, level);
-			//if(Controllers.containsKey(level))System.out.println("true");
-
-			if(!checkSynthesis(nowClevel, deltaWRElevel)) {//今動いているコントローラとsimulateしているかどうか
+			if(!checkSynthesis(nowClevel, deltaWRClevel)) {//今動いているコントローラとsimulateしているかどうか
 				//System.out.println("false");
 				long stop=System.currentTimeMillis();
 				System.out.println("Spending time of IdentifyWR+Synthesis:  "+(stop-start2)+"ms");
@@ -960,8 +633,6 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 				//now = level;
 				continue;
 			}else if(level==nowClevel) {//deltaWRE==0の場合
-				//createUpdateSimulate(level);
-				//System.out.println("true");
 				long stop=System.currentTimeMillis();
 				System.out.println("Spending time of IdentifyWR+Synthesis: "+(stop-start2)+"ms");
 				System.out.println("Spending time of Synthesis: "+(stop-start)+"ms");
@@ -971,7 +642,7 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 				continue;
 			}
 			//createUpdateSimulate(level);
-			generateUpdateController(deltaWRElevel, level);
+			generateUpdateController(deltaWRClevel, level);
 			//if(Controllers.containsKey(level))System.out.println("true");
 			long stop=System.currentTimeMillis();
 			System.out.println("Spending time of IdentifyWR+Synthesis: "+(stop-start2)+"ms");
@@ -990,33 +661,38 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 	}
 
 	List<State> IdentifyUpdateWR(GameModel model, int level) {//Updateがちゃんとできていない可能性あり
-		WRETmp = new ArrayList<State>();
+		//WRETmp = new ArrayList<State>();
 		WRCTmp = new ArrayList<State>();
-		deltaWRE = new ArrayList<State>();
-		WRETmp = WRE.get(level);
+		List<State> oldWRC = new ArrayList<State>();
+		deltaWRC = new ArrayList<State>();
+		count=0;
+		//WRETmp = WRE.get(level);
+		oldWRC = WRC.get(level);
 		List<Transition> l = model.getUpdatedPart();//updateはTransitionのみを考えている？
 		for(int i=0;i<l.size();i++) {
 			if(l.get(i).getTo().isDead()) {
 				pasteUpdateDToTransition(l.get(i));
 			}
 		}
-		WRE.put(level, WRETmp);
+		//WRE.put(level, WRETmp);
 		State initial = model.getInitialState();
-		for(int i=0;i<model.getSize();i++) {
-			State tmp = model.getState(i);
-			if(tmp==initial && WRCTmp.size()>0) {
-				State change = WRCTmp.get(0);
-				if(!WRETmp.contains(tmp))WRCTmp.set(0, tmp);
-				WRCTmp.add(change);
-			}else if(!WRETmp.contains(tmp))WRCTmp.add(tmp);
+		WRCTmp.add(initial);
+		for(int i=0;i<initial.getToTransitionNum();i++) {
+			countWRC(initial.getToTransition(i).getTo());
+		}
+		for(int i=0;i<oldWRC.size();i++) {
+			State tmp = oldWRC.get(i);
+			if(!WRCTmp.contains(tmp))deltaWRC.add(tmp);
 		}
 		System.out.println("GameState: "+ model.getSize());
-		System.out.println("WRETmp: " + WRETmp.size());
-		System.out.println("deltaWRE: " + deltaWRE.size());
+		//System.out.println("WRETmp: " + WRETmp.size());
+		//System.out.println("deltaWRE: " + deltaWRE.size());
+		System.out.println("count :" + count);
 		System.out.println("WRCTmp: " + WRCTmp.size());
+		System.out.println("deltaWRC: " + deltaWRC.size());
 		WRC.put(level, WRCTmp);
 		//UpdateController(l,level);
-		return deltaWRE;
+		return deltaWRC;
 		//return WRCTmp;
 	}
 
@@ -1039,8 +715,9 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 			if (!t.isControllable() && t.isDead()) {//UnControllable Actionで環境側のWinning Regionに繋がるならば
 				m.setIsDead();//そのStateはDead
 				//System.out.println(m.getName());
-				WRETmp.add(m);
-				deltaWRE.add(m);
+//				WRETmp.add(m);
+//				deltaWRE.add(m);
+				count++;
 				//System.out.println("Dead state:["+m+"]");//debug
 				for (int j = 0; j < m.getFromTransitionNum(); j++) {
 					pasteUpdateDToTransition(m.getFromTransition(j));
@@ -1053,8 +730,9 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 
 		if (dead) {
 			m.setIsDead();
-			WRETmp.add(m);
-			deltaWRE.add(m);
+			count++;
+//			WRETmp.add(m);
+//			deltaWRE.add(m);
 		}
 		//System.out.println(" isDead:"+m.isDead());
 		if (m.isDead()) {
@@ -1122,75 +800,8 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 					fromCState.addToTransition(newTransition);
 				}
 //				*/
-				/*
-				if(toState.isDead() || fromState.isDead())continue;
-				if(toCState==null) {
-					toCState=new State(toState.getName());
-					C.put(toCState.getName(), toCState);
-				}
-				if(fromCState==null) {
-					fromCState=new State(fromState.getName());
-					C.put(fromCState.getName(), fromCState);
-				}
-				*/
 			}
 		}
-		/*
-		for(int i=0;i<l.size();i++) {
-			Transition tr = l.get(i);
-			if(!tr.isDead()) {
-				toState=tr.getTo();
-				fromState=tr.getFrom();
-				toCState=C.get(toState.getName());
-				fromCState = C.get(fromState.getName());
-				if(toState.isDead()||fromState.isDead())continue;
-				for(int j=0;j<toState.getFromTransitionNum();j++) {
-					tmpTransition = toState.getFromTransition(j);
-					if(!tmpTransition.isDead()) {
-						if(toCState.containsFromTransition(tmpTransition.getName()))continue;
-						tmpFromState = tmpTransition.getFrom();
-						tmpFromCState = C.get(tmpFromState.getName());
-						newTransition = new Transition(tmpTransition.getName(), tmpFromCState, toCState);
-						if(tmpTransition.isControllable())newTransition.setIsControllable();
-						toCState.addFromTransition(newTransition);
-					}
-				}
-				for(int j=0;j<toState.getToTransitionNum();j++) {
-					tmpTransition = toState.getToTransition(j);
-					if(!tmpTransition.isDead()) {
-						if(toCState.containsToTransition(tmpTransition.getName()))continue;
-						tmpToState = tmpTransition.getTo();
-						tmpToCState = C.get(tmpToState.getName());
-						newTransition = new Transition(tmpTransition.getName(), toCState, tmpToCState);
-						if(tmpTransition.isControllable())newTransition.setIsControllable();
-						toCState.addToTransition(newTransition);
-					}
-				}
-				for(int j=0;j<fromState.getFromTransitionNum();j++) {
-					tmpTransition = fromState.getFromTransition(j);
-					if(!tmpTransition.isDead()) {
-						if(fromCState.containsFromTransition(tmpTransition.getName()))continue;
-						tmpFromState = tmpTransition.getFrom();
-						tmpFromCState = C.get(tmpFromState.getName());
-						newTransition = new Transition(tmpTransition.getName(), tmpFromCState, fromCState);
-						if(tmpTransition.isControllable())newTransition.setIsControllable();
-						fromCState.addFromTransition(newTransition);
-					}
-				}
-				for(int j=0;j<fromState.getToTransitionNum();j++) {
-					tmpTransition = fromState.getToTransition(j);
-					if(!tmpTransition.isDead()) {
-						if(fromCState.containsToTransition(tmpTransition.getName()))continue;
-						tmpToState = tmpTransition.getTo();
-						tmpToCState = C.get(tmpToState.getName());
-						newTransition = new Transition(tmpTransition.getName(), fromCState, tmpToCState);
-						if(tmpTransition.isControllable())newTransition.setIsControllable();
-						fromCState.addToTransition(newTransition);
-					}
-				}
-			}
-		}
-		*/
 		Controllers.put(level, C);
 	}
 
@@ -1221,25 +832,6 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 		Controllers.put(level, C);
 	}
 
-	/*
-	public int checkSimulate(ModelInterface controller) {//ModelInterfaceじゃなくてModelでok
-		this.setController(controller);
-		return checkSimulate();
-	}
-
-	public int checkSimulate() {//重要
-		pasteDeadFromConcurrentSystem();
-		pasteController();
-		for (int i = currentIndex; i < MAX_LEVEL; i++) {
-			if (!checkCanSimulate(this.modelList.get(i),MAX_LEVEL-i)) {
-				currentIndex = i;//level決め
-				//System.out.println("first checkSimulate MAX_LEVEL"+MAX_LEVEL+","+(MAX_LEVEL-i));
-				break;
-			}
-		}
-		return MAX_LEVEL - currentIndex;
-	}
-	*/
 	public int[][] checkDesignTimeSynthesis() {
 		int level = max;
 		int Csize[][] = new int[modelList.size()][2];
@@ -1283,20 +875,6 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 		return now;
 	}
 
-	/*
-	public int checkUpdatedSimulate() {
-		pasteUpdatedDead();
-		pasteController();
-		for (int i = currentIndex; i < MAX_LEVEL; i++) {
-			currentIndex = i;
-			if (!checkCanSimulate(this.modelList.get(i),(MAX_LEVEL-i))) {
-				//System.out.println("checkUpdatedSimulateEnd:"+(MAX_LEVEL-i));
-				break;
-			}
-		}
-		return MAX_LEVEL - currentIndex;
-	}
-	*/
 	public int checkDifferentialControllerSynthesis() {
 		HashMap<String,State> tmpC = new HashMap<String,State>();
 		//DesignTimeSynthesis();
@@ -1307,7 +885,7 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 			if(Controllers.containsKey(level)){
 			tmpC = Controllers.get(level);
 			if(tmpC==null)System.out.println("null");
-			System.out.println("level " + level + "," + "State数 " + tmpC.size() + "," + "Transition数 " + CountTransitionNum(level, tmpC));
+			System.out.println("level " + level + "," + "State数 " + tmpC.size()/* + "," + "Transition数 " + CountTransitionNum(level, tmpC)*/);
 			System.out.println();
 			}
 			level--;
@@ -1318,14 +896,14 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 
 	public int checkDiscreteControllerSynthesis() {
 		HashMap<String,State> tmpC = new HashMap<String,State>();
-		DiscreteControllerSynthesis();
+//		DiscreteControllerSynthesis();
 		System.out.println("nowlevel " + now);
 		int level = now;
 		while(level>0) {
 			if(Controllers.containsKey(level)){
 			tmpC = Controllers.get(level);
 			if(tmpC==null)System.out.println("null");
-			System.out.println("level " + level + "," + "State数 " + tmpC.size() + "," + "Transition数 " + CountTransitionNum(level, tmpC));
+			System.out.println("level " + level + "," + "State数 " + tmpC.size()/* + "," + "Transition数 " + CountTransitionNum(level, tmpC)*/);
 			System.out.println();
 			}
 			level--;
@@ -1364,24 +942,6 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 		return isDead;
 	}
 
-	public int checkSimulate(ModelInterface controller) {//ModelInterfaceじゃなくてModelでok
-		this.setController(controller);
-		return checkSimulate();
-	}
-
-	public int checkSimulate() {//重要
-		pasteDeadFromConcurrentSystem();
-		pasteController();
-		for (int i = currentIndex; i < MAX_LEVEL; i++) {
-			if (!checkCanSimulate(this.modelList.get(i),MAX_LEVEL-i)) {
-				currentIndex = i;//level決め
-				//System.out.println("first checkSimulate MAX_LEVEL"+MAX_LEVEL+","+(MAX_LEVEL-i));
-				break;
-			}
-		}
-		return MAX_LEVEL - currentIndex;
-	}
-
 	public int checkUpdatedSimulate() {
 		pasteUpdatedDead();
 		pasteController();
@@ -1394,14 +954,6 @@ public class TransitionParser {//Transitionの構文解析ツール pastedead ca
 		}
 		return MAX_LEVEL - currentIndex;
 	}
-
-	/*public void checkSimulateOld(GameModel rs) {
-		eraseDead();
-		eraseContoller();
-		pasteDead();
-		pasteController();
-		checkCanSimulate(rs,-1);
-	}*/
 
 	//new
 	public void generatedController() {//アルゴリズム上のextractWSとtranslateWSを混ぜたもの

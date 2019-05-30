@@ -193,17 +193,17 @@ public class DirectoryTrackerForSingleWinningRegion {
 		if(reqs==null||reqs.isEmpty())System.out.println("no reqirement level file");
 		return reqs;
 	}
-	public int checkSimulate(String controller){//全体の流れ
+	/*public int checkSimulate(String controller){//全体の流れ
 		if(cmList==null||cmList.isEmpty()){
 			getCModelFromDirectory();//EnvとReqMoniからGameを作成
 		}
 		FSP_FileReader reader=new FSP_FileReader(directory.getPath()+sep+"Controller"+sep+controller);//simulate用のController
 		c=reader.getModel();
-		tp=new TransitionParser(cmList);//コンストラクタ引数List<GameModel>
+		tp=new TransitionParser_old(cmList);//コンストラクタ引数List<GameModel>
 		firstCheck=true;
 		return tp.checkSimulate(c);
 
-	}
+	}*/
 	private boolean modelUpdate(String updatedPart){
 		if(!firstCheck){
 			System.out.println("ERROR: First check have not been done yet");
@@ -389,7 +389,7 @@ public class DirectoryTrackerForSingleWinningRegion {
 		return;
 	}
 
-	public void checkDCSUEnv(String controller, int level) {
+	public void checkDCSUEnv(String controller, int firstlevel, int lastlevel) {
 		int check;
 		long start=System.currentTimeMillis();
 		FSP_FileReader reader=new FSP_FileReader(directory.getPath()+sep+"Controller"+sep+controller);//simulate用のController
@@ -397,12 +397,12 @@ public class DirectoryTrackerForSingleWinningRegion {
 		long stop = System.currentTimeMillis();
 		System.out.println("Spending time of Simulate Controller: " + (stop-start) + "ms");
 		long realstart = System.currentTimeMillis();
-		for(int i=0;i<level;i++) {
+		for(int i=firstlevel;i<lastlevel;i++) {
 			start=System.currentTimeMillis();
 			getUpdateCModelFromDirectory(i);
 			stop = System.currentTimeMillis();
 			System.out.println("Spending time of Game Create: " + (stop-start) + "ms");
-			tp2 = new TP2(Game, level-i);
+			tp2 = new TP2(Game, lastlevel-i);
 			firstCheck=true;
 			check=tp2.checkDCSUEnv(c);
 			if(check==0 || check==-1) {

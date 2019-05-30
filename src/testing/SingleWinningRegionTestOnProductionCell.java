@@ -1,17 +1,17 @@
 package testing;
 
 import static org.junit.Assert.*;
-import multiGR.multiConcurrentModel.MultiConcurrentModel;
 
 import org.junit.Test;
 
 import multiGR.errorReachableAnalyzer.MultiRequirementParser;
+import multiGR.multiConcurrentModel.MultiConcurrentModel;
 
 public class SingleWinningRegionTestOnProductionCell {
 	DirectoryTrackerForSingleWinningRegion dt;
 	MultiConcurrentModel mcm;
 	MultiRequirementParser mrp;
-	//C˜_‚Ås‚Á‚½ÀŒ±‚Ì“à—eB”ŠÔ‚ğ—v‚µ‚Ü‚·B
+	//ï¿½Cï¿½_ï¿½Åsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì“ï¿½ï¿½eï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½vï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
 	@Test
 	public void CaseTest1(){
 		String[] cases ={"case1.txt"};
@@ -157,7 +157,7 @@ public class SingleWinningRegionTestOnProductionCell {
 
 	}
 
-	//C˜_‚Ås‚Á‚½ÀŒ±‚Ì“à—eB”ŠÔ‚ğ—v‚µ‚Ü‚·B
+	//ï¿½Cï¿½_ï¿½Åsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì“ï¿½ï¿½eï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½vï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
 				/*
 				"DontMoveWithNoMeanT.txt",
 				"DontMoveWithNoMeanP.txt",
@@ -179,7 +179,7 @@ public class SingleWinningRegionTestOnProductionCell {
 	int doJointTest(String[] cases,String controller){
 		dt=new DirectoryTrackerForSingleWinningRegion(".\\Product2_machine3_11");
 		int tmp=-1;
-		dt.checkSimulate(controller);
+		//dt.checkSimulate(controller);
 		for(int i=0;i<cases.length;i++)
 			dt.checkUpdateFromFile(cases[i]);
 		long start=System.currentTimeMillis();

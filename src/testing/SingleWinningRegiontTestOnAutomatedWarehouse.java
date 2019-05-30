@@ -104,7 +104,7 @@ import org.junit.Test;
 			int tmp=-1;
 			dt=new DirectoryTrackerForSingleWinningRegion(/*"TransitionAnalyze"+File.separator+*/"AutomatedWarehouse");
 //			dt.getCModelFromDirectory();
-			dt.checkSimulate(controller);
+			//dt.checkSimulate(controller);
 			for(int i=0;i<cases.length-1;i++)
 				dt.checkUpdateFromFile(cases[i]);//cases内をfor文で回している case1.txtやcase2.txtの中身 今までの環境のupdateの情報
 

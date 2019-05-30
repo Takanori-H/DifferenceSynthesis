@@ -1,3 +1,4 @@
+//Discrete Controller Synthesis用のテスト
 package testing;
 
 import org.junit.Test;
@@ -25,13 +26,13 @@ public class DCSAWUpdateEnv {
 				"Controller14.txt"
 
 		};
-		doJointTest(cont[5]);
+		doJointTest(cont[14]);
 	}
 
 	void doJointTest(String controller) {
 		dt = new DirectoryTrackerForSingleWinningRegion("AutomatedWarehouse");
 		long start=System.currentTimeMillis();
-		dt.checkDCSUEnv(controller, 5);
+		dt.checkDCSUEnv(controller, 3, 5);
 		long stop=System.currentTimeMillis();
 		System.out.print("Spending time: "+(stop-start)+"ms");
 		return;

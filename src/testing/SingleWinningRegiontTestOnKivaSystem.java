@@ -13,7 +13,7 @@ import org.junit.Test;
 			assertEquals(5,doJointTest(cases,"Controller.txt"));
 
 		}
-		//C˜_‚Ås‚Á‚½ÀŒ±‚Ì“à—eB”ŠÔ‚ğ—v‚µ‚Ü‚·B
+		//ï¿½Cï¿½_ï¿½Åsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì“ï¿½ï¿½eï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½vï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
 		@Test
 		public void allCaseTest() {
 			String[][] cases = {
@@ -83,7 +83,7 @@ import org.junit.Test;
 			int tmp=-1;
 			dt=new DirectoryTrackerForSingleWinningRegion(/*"TransitionAnalyze"+File.separator+*/"KIVAsystemSingle");
 //			dt.getCModelFromDirectory();
-			dt.checkSimulate(controller);
+			//dt.checkSimulate(controller);
 			for(int i=0;i<cases.length-1;i++)
 				dt.checkUpdateFromFile(cases[i]);
 

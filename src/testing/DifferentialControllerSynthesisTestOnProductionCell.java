@@ -1,3 +1,4 @@
+//差分Synthesis用のテスト
 package testing;
 
 import org.junit.Test;
@@ -6,7 +7,7 @@ public class DifferentialControllerSynthesisTestOnProductionCell {
 	DirectoryTrackerForSingleWinningRegion dt;
 
 	@Test
-	public void cases0test() {
+	public void cases0test() {//16 -> 16
 		String[] cases = {"case1.txt"};
 		int expected= 14;
 		int actuals = doJointTest(cases);
@@ -16,7 +17,7 @@ public class DifferentialControllerSynthesisTestOnProductionCell {
 	}
 
 	@Test
-	public void cases1test() {
+	public void cases1test() {//16 -> 14
 		String[] cases = {"case2.txt"};
 		int expected= 14;
 		int actuals = doJointTest(cases);
@@ -26,7 +27,7 @@ public class DifferentialControllerSynthesisTestOnProductionCell {
 	}
 
 	@Test
-	public void cases2test() {
+	public void cases2test() {//16 -> 12
 		String[] cases = {"case3.txt"};
 		int expected= 12;
 		int actuals = doJointTest(cases);
@@ -36,7 +37,7 @@ public class DifferentialControllerSynthesisTestOnProductionCell {
 	}
 
 	@Test
-	public void cases3test() {
+	public void cases3test() {//16 -> 15
 		String[] cases = {"case4.txt"};
 		int expected= 15;
 		int actuals = doJointTest(cases);
@@ -46,7 +47,7 @@ public class DifferentialControllerSynthesisTestOnProductionCell {
 	}
 
 	@Test
-	public void cases4test() {
+	public void cases4test() {//16 -> 15 -> 9
 		String[] cases = {"case4.txt", "case5.txt"};
 		int expected= 13;
 		int actuals = doJointTest(cases);
@@ -56,7 +57,7 @@ public class DifferentialControllerSynthesisTestOnProductionCell {
 	}
 
 	@Test
-	public void cases5test() {
+	public void cases5test() {//16 -> 13
 		String[] cases = {"case6.txt"};
 		int expected= 11;
 		int actuals = doJointTest(cases);
@@ -66,7 +67,7 @@ public class DifferentialControllerSynthesisTestOnProductionCell {
 	}
 
 	@Test
-	public void cases6test() {
+	public void cases6test() {//16 -> 14 -> 11
 		String[] cases = {"case2.txt","case4.txt"};
 		int expected= 9;
 		int actuals = doJointTest(cases);
@@ -76,7 +77,7 @@ public class DifferentialControllerSynthesisTestOnProductionCell {
 	}
 
 	@Test
-	public void cases7test() {
+	public void cases7test() {//16 -> 15 -> 11
 		String[] cases = {"case4.txt","case8.txt"};
 		int expected= 5;
 		int actuals = doJointTest(cases);
@@ -86,7 +87,7 @@ public class DifferentialControllerSynthesisTestOnProductionCell {
 	}
 
 	@Test
-	public void cases8test() {
+	public void cases8test() {//16 -> 14 -> 11 -> 11
 		String[] cases = {"case2.txt","case4.txt", "case8.txt"};
 		int expected= 6;
 		int actuals = doJointTest(cases);
@@ -96,7 +97,7 @@ public class DifferentialControllerSynthesisTestOnProductionCell {
 	}
 
 	@Test
-	public void cases9test() {
+	public void cases9test() {//16 -> 12 -> 9 -> 4
 		String[] cases = {"case3.txt","case4.txt", "case10.txt"};
 		int expected= 9;
 		int actuals = doJointTest(cases);
